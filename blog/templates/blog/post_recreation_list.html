@@ -1,0 +1,27 @@
+{% extends 'blog/base.html' %}
+{% block content %}
+{% for recreationpost in recreationposts %}
+
+<div class="card card-spots">
+  <div class="card-img-top" style="background: url({{ spotpost.photo.url }}) no-repeat center; background-size: cover;" alt="Card image cap"></div>
+  <div class="card-block">
+    <h4 class="card-title">{{ recreationpost.title }}</h4>
+    <!-- <p class="card-text">필요할때 넣으세요.</p> -->
+    <!-- <a href="{% url 'post_recreation_detail' pk=recreationpost.pk %}" class="btn btn-primary">자세히 보기</a> -->
+    <div class="btn-group" role="group">
+      <input type="button" class="like btn btn-sm btn-secondary" name="{{ recreationpost.pk}}" value="Like">
+      </input>
+      <div class="btn btn-sm btn-secondary card-spots-text-likes">
+        <span id="count-{{ recreationpost.pk }}">{{ recreationpost.like_count }}개</span>
+        <span id=""like-user-{{ recreationpost.pk }}>
+          {%  for like_user in sootpost.like_user_set.all %}
+              {{ like_user.user }}
+              {% endfor %}
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+{% endfor %}
+{% endblock %}
+

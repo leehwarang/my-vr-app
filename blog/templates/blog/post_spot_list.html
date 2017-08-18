@@ -1,0 +1,27 @@
+{% extends 'blog/base.html' %}
+{% block content %}
+{% for spotpost in spotposts %}
+
+<div class="card card-spots">
+  <div class="card-img-top" style="background: url({{ spotpost.photo.url }}) no-repeat center; background-size: cover;" alt="Card image cap"></div>
+  <div class="card-block">
+      <h4 class="card-title"><a href="{% url 'post_spot_detail' pk=spotpost.pk %}">{{ spotpost.title }}</a></h4>
+    <!-- <p class="card-text">필요할때 넣으세요.</p> -->
+    <div class="btn-group" role="group">
+      <input type="button" class="like btn btn-sm btn-secondary" name="{{ spotpost.pk}}" value="Like">
+      </input>
+      <div class="btn btn-sm btn-secondary card-spots-text-likes">
+        <span id="count-{{ spotpost.pk }}">{{ spotpost.like_count }}개</span>
+        <span id=""like-user-{{ spotpost.pk }}>
+          {%  for like_user in sootpost.like_user_set.all %}
+              {{ like_user.user }}
+              {% endfor %}
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+{% endfor %}
+{% endblock %}
+
+
