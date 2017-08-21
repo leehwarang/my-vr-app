@@ -35,7 +35,6 @@ class Post(models.Model):
 		(RECREATION, 'RECREATION')
 	)
 
-	#cities
 
 	postcategory = models.CharField(max_length=20, choices=POSTCATEGORY, default = SPOT)
 
@@ -72,7 +71,6 @@ class Post(models.Model):
 										   related_name='like_user_set',
 										   through='Like')  # post.like_set 으로 접근 가능
 
-    
 	def __str__(self):
 		return self.title
 

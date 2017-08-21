@@ -1,4 +1,5 @@
 from django.contrib import messages
+from django.db.models import Count
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.template import RequestContext
@@ -21,8 +22,6 @@ try:
 except ImportError:
     import json
 
-
-
 #from .forms import UserForm
 #from django.contrib.auth.models import User
 #from django.contrib.auth import login
@@ -37,8 +36,8 @@ def post_spot_list(request):
     sort = request.GET.get('sort', '')  # url의 쿼리스트링을 가져온다. 없는 경우 공백을 리턴한다
 
     if sort == 'likes':
-        spotposts = Post.objects.filter(postcategory="SPOT")
-        #memos = Memos.objects.annotate(like_count=Count('likes')).order_by('-like_count', '-update_date')
+        #spotposts = Post.objects.filter(postcategory="SPOT").annotate(like_count=Count('like_user_set')).order_by('-like_count','-created_date')
+        spotposts = Post.objects.filter(postcategory="SPOT").annotate(count=Count('like_user_set')).order_by('-count', '-created_date')
         return render(request, 'blog/post_spot_list.html', {'spotposts': spotposts})
     elif sort == 'date':
         spotposts = Post.objects.filter(postcategory="SPOT").order_by('-created_date')
