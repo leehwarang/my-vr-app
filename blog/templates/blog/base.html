@@ -67,10 +67,11 @@
     <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
-    
-    <!-- 좋아요를 위한 자바스크립트 -->
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
+    <!--좋아요 기능을 위한 자바스크립트 -->
+      <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script type="text/javascript">
+
       $(document).on('click', '.like', function(){
         var pk = $(this).attr('name') //이 button을 클릭했을 때 이 spotpost.pk(name)을 return 해준다
         $.ajax({ // .like 버튼을 클릭하면 <새로고침> 없이 ajax로 서버와 통신하겠다.
@@ -97,7 +98,35 @@
         },
       });
     })
-    </script>
+</script>
+
+  <!--최신순/좋아요순 정렬을 위한 자바스크립트-->
+    <script>
+  // get url query string
+var getUrlParameter = function getUrlParameter(sParam) {
+    var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+        sURLVariables = sPageURL.split('&'),
+        sParameterName,
+        i;
+
+    for (i = 0; i < sURLVariables.length; i++) {
+        sParameterName = sURLVariables[i].split('=');
+
+        if (sParameterName[0] === sParam) {
+            return sParameterName[1] === undefined ? true : sParameterName[1];
+        }
+    }
+};
+// 정렬방식 셀렉트 박스 유지
+$(document).ready(function(){
+  var sort = getUrlParameter('sort');
+  if(sort == 'likes'){
+    $('.sort-likes').prop('selected', 'selected')
+  }else if(sort == 'date'){
+    $('.sort-date').prop('selected', 'selected')
+  }
+});
+  </script>
 
   </body>
 </html>

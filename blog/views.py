@@ -34,8 +34,18 @@ def post_all(request):
     return render(request, 'blog/post_all.html', {'posts': posts})
 
 def post_spot_list(request):
-	spotposts = Post.objects.filter(postcategory="SPOT")
-	return render(request, 'blog/post_spot_list.html', {'spotposts': spotposts})
+    sort = request.GET.get('sort', '')  # url의 쿼리스트링을 가져온다. 없는 경우 공백을 리턴한다
+
+    if sort == 'likes':
+        spotposts = Post.objects.filter(postcategory="SPOT")
+        #memos = Memos.objects.annotate(like_count=Count('likes')).order_by('-like_count', '-update_date')
+        return render(request, 'blog/post_spot_list.html', {'spotposts': spotposts})
+    elif sort == 'date':
+        spotposts = Post.objects.filter(postcategory="SPOT").order_by('-created_date')
+        return render(request, 'blog/post_spot_list.html', {'spotposts': spotposts})
+    else:
+        spotposts = Post.objects.filter(postcategory="SPOT")
+        return render(request, 'blog/post_spot_list.html', {'spotposts': spotposts})
 
 def post_spot_detail(request, pk):
     spotpost = get_object_or_404(Post, pk=pk)
@@ -173,7 +183,6 @@ def post_like(request): #http가 서버에게 뭔가를 요청하는 것. 나 �
 
     return HttpResponse(json.dumps(context), content_type="application/json")
     # context를 json 타입으로 data 전달
-
 
 '''
 def post_spot_delete(request, pk):

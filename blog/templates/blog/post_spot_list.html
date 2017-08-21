@@ -1,6 +1,12 @@
+<select id="sort-select" onchange="location = this.value;">
+    <option value="">선택</option>
+    <option class="sort-date" value="?sort=date">최신순</option>
+  <option class="sort-likes" value="?sort=likes">좋아요순</option>
+</select>
+
 {% extends 'blog/base.html' %}
 {% block content %}
-{% for spotpost in spotposts %}
+    {% for spotpost in spotposts %}
 
 <div class="card card-spots">
   <div class="card-img-top" style="background: url({{ spotpost.photo.url }}) no-repeat center; background-size: cover;" alt="Card image cap"></div>
@@ -23,5 +29,3 @@
 </div>
 {% endfor %}
 {% endblock %}
-
-
