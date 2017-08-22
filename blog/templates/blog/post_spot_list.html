@@ -24,6 +24,15 @@
               {% endfor %}
         </span>
       </div>
+        {% if spotpost.owner == user %}
+            <span class=pull-right>
+        <a class="post-edit" href="{% url "post_spot_edit" pk=spotpost.pk %}"><img src=" static 'images/edit.png' %}" class="edit" alt="수정"></a>
+            <form class="post-delete-form" action="{% url "post_spot_delete" pk=spotpost.pk %}" method="post">
+        {% csrf_token %}
+        <input class="post-delete" type="submit" value="삭제" onclick="return confirm('정말 삭제하시겠습니까?')">
+      </form>
+    </span>
+    {% endif %}
     </div>
   </div>
 </div>

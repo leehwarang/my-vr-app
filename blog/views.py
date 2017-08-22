@@ -209,18 +209,17 @@ def post_like(request): #http가 서버에게 뭔가를 요청하는 것. 나 �
     return HttpResponse(json.dumps(context), content_type="application/json")
     # context를 json 타입으로 data 전달
 
-'''
+@login_required()
 def post_spot_delete(request, pk):
-    post = get_object_or_404(Post, pk=pk)
-    if post.owner != request.user or request.method == 'GET':
+    spotpost = get_object_or_404(Post, pk=pk)
+    if spotpost.owner == User.objects.get(username = request.user.get_username()):
+        spotpost.delete()
+        return redirect('post_spot_list')
+    else:
         messages.warning(request, '잘못된 접근입니다.')
         return redirect('post:post_spot_list')
 
-    if request.method == 'POST':
-        post.delete()
-        messages.success(request, '삭제완료')
-        return redirect('post:post_spot_list')
-  
+''' 
 def post_accomodation_delete(request, pk):
     post = get_object_or_404(Post, pk=pk)
     if post.owner != request.user or request.method == 'GET':

@@ -19,7 +19,7 @@ urlpatterns = [
     url(r'^accomodation/(?P<pk>\d+)/edit/$', views.post_accomodation_edit, name='post_accomodation_edit'),
     url(r'^restaurant/(?P<pk>\d+)/edit/$', views.post_restaurant_edit, name='post_restaurant_edit'),
     url(r'^recreation/(?P<pk>\d+)/edit/$', views.post_recreation_edit, name='post_recreation_edit'),
-    #url(r'^spot/(?P<pk>[0-9]+)/delete/$', views.post_spot_delete, name='post_spot_delete'),
+    url(r'^spot/(?P<pk>[0-9]+)/delete/$', views.post_spot_delete, name='post_spot_delete'),
     #url(r'^accomodation/(?P<pk>[0-9]+)/delete/$', views.post_accomodation_delete, name='post_accomodation_delete'),
     #url(r'^restaurant/(?P<pk>[0-9]+)/delete/$', views.post_restaurant_delete, name='post_restaurant_delete'),
     url(r'^logout/$', auth_views.logout, {'next_page': '/'}),  # 아주 잘 작동됨
