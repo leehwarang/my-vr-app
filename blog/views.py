@@ -33,15 +33,17 @@ def post_all(request):
     return render(request, 'blog/post_all.html', {'posts': posts})
 
 def post_spot_list(request):
+
     sort = request.GET.get('sort', '')  # url의 쿼리스트링을 가져온다. 없는 경우 공백을 리턴한다
 
     if sort == 'likes':
-        #spotposts = Post.objects.filter(postcategory="SPOT").annotate(like_count=Count('like_user_set')).order_by('-like_count','-created_date')
         spotposts = Post.objects.filter(postcategory="SPOT").annotate(count=Count('like_user_set')).order_by('-count', '-created_date')
         return render(request, 'blog/post_spot_list.html', {'spotposts': spotposts})
+
     elif sort == 'date':
         spotposts = Post.objects.filter(postcategory="SPOT").order_by('-created_date')
         return render(request, 'blog/post_spot_list.html', {'spotposts': spotposts})
+
     else:
         spotposts = Post.objects.filter(postcategory="SPOT")
         return render(request, 'blog/post_spot_list.html', {'spotposts': spotposts})
@@ -51,16 +53,40 @@ def post_spot_detail(request, pk):
     return render(request, 'blog/post_spot_detail.html', {'spotpost': spotpost})
 
 def post_accomodation_list(request):
-	accomodationposts = Post.objects.filter(postcategory="ACCOMODATION")
-	return render(request, 'blog/post_accomodation_list.html', {'accomodationposts': accomodationposts})
+
+    sort = request.GET.get('sort', '')  # url의 쿼리스트링을 가져온다. 없는 경우 공백을 리턴한다
+
+    if sort == 'likes':
+        accomodationposts = Post.objects.filter(postcategory="ACCOMODATION").annotate(count=Count('like_user_set')).order_by('-count','-created_date')
+        return render(request, 'blog/post_accomodation_list.html', {'accomodationposts': accomodationposts})
+
+    elif sort == 'date':
+        accomodationposts = Post.objects.filter(postcategory="ACCOMODATION").order_by('-created_date')
+        return render(request, 'blog/post_accomodation_list.html', {'accomodationposts': accomodationposts})
+
+    else:
+        accomodationposts = Post.objects.filter(postcategory="ACCOMODATION")
+        return render(request, 'blog/post_accomodation_list.html', {'accomodationposts': accomodationposts})
 
 def post_accomodation_detail(request, pk):
     accomodationpost = get_object_or_404(Post, pk=pk)
     return render(request, 'blog/post_accomodation_detail.html', {'accomodationpost': accomodationpost})
 
 def post_restaurant_list(request):
-	restaurantposts = Post.objects.filter(postcategory="RESTAURANT")
-	return render(request, 'blog/post_restaurant_list.html', {'restaurantposts': restaurantposts})
+
+    sort = request.GET.get('sort', '')  # url의 쿼리스트링을 가져온다. 없는 경우 공백을 리턴한다
+
+    if sort == 'likes':
+        restaurantposts = Post.objects.filter(postcategory="RESTAURANT").annotate(count=Count('like_user_set')).order_by('-count','-created_date')
+        return render(request, 'blog/post_restaurant_list.html', {'restaurantposts': restaurantposts})
+
+    elif sort == 'date':
+        restaurantposts = Post.objects.filter(postcategory="RESTAURANT").order_by('-created_date')
+        return render(request, 'blog/post_restaurant_list.html', {'restaurantposts': restaurantposts})
+
+    else:
+        restaurantposts = Post.objects.filter(postcategory="RESTAURANT")
+        return render(request, 'blog/post_restaurant_list.html', {'restaurantposts': restaurantposts})
 
 def post_restaurant_detail(request, pk):
     restaurantpost = get_object_or_404(Post, pk=pk)
