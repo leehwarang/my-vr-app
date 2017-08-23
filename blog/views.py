@@ -219,30 +219,26 @@ def post_spot_delete(request, pk):
         messages.warning(request, '잘못된 접근입니다.')
         return redirect('post:post_spot_list')
 
-''' 
+@login_required()
 def post_accomodation_delete(request, pk):
-    post = get_object_or_404(Post, pk=pk)
-    if post.owner != request.user or request.method == 'GET':
+    accomodationpost = get_object_or_404(Post, pk=pk)
+    if accomodationpost.owner == User.objects.get(username=request.user.get_username()):
+        accomodationpost.delete()
+        return redirect('post_accomodation_list')
+    else:
         messages.warning(request, '잘못된 접근입니다.')
         return redirect('post:post_accomodation_list')
 
-    if request.method == 'POST':
-        post.delete()
-        messages.success(request, '삭제완료')
-        return redirect('post:post_accomodation_list')
 
+@login_required()
 def post_restaurant_delete(request, pk):
-    post = get_object_or_404(Post, pk=pk)
-    if post.owner != request.user or request.method == 'GET':
+    restaurantpost = get_object_or_404(Post, pk=pk)
+    if restaurantpost.owner == User.objects.get(username=request.user.get_username()):
+        restaurantpost.delete()
+        return redirect('post_restaurant_list')
+    else:
         messages.warning(request, '잘못된 접근입니다.')
         return redirect('post:post_restaurant_list')
-
-    if request.method == 'POST':
-        post.delete()
-        messages.success(request, '삭제완료')
-        return redirect('post:post_restaurant_list')
-'''
-
 
 class CreateUserView(CreateView):
     template_name = 'registration/signup.html'
