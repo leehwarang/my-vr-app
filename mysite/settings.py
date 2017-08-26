@@ -41,9 +41,15 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'embed_video'
+    'embed_video',
+    'disqus',
+    'django.contrib.sites',
     #'cities',
 ]
+
+DISQUS_WEBSITE_SHORTNAME = 'vr-blog'    #추가
+SITE_ID = 1 # 추가
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

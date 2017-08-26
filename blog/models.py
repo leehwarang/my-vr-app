@@ -100,3 +100,8 @@ class Like(models.Model):
         unique_together = (
             ('user', 'post')
         )
+
+
+
+
+

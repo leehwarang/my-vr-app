@@ -240,6 +240,7 @@ def post_restaurant_delete(request, pk):
         messages.warning(request, '잘못된 접근입니다.')
         return redirect('post:post_restaurant_list')
 
+
 class CreateUserView(CreateView):
     template_name = 'registration/signup.html'
     form_class = CreateUserForm #내장 회원가입 폼을 커스터마이징 한 것을 사용함
