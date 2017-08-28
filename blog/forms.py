@@ -34,5 +34,5 @@ class PostForm(forms.ModelForm):
 
     class Meta:
         model = Post
-        fields = ('country', 'postcategory','classification','title', 'name', 'address', 'content', 'photo', 'video')
+        fields = ('country', 'postcategory','classification','title', 'name', 'address', 'content', 'photo', 'video','owner')
         widgets = {'country': CountrySelectWidget()}

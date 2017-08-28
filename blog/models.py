@@ -49,7 +49,7 @@ class Post(models.Model):
 	classification = models.CharField(max_length = 20, choices=CLASSIFICATION, default = 360)
 
 	title = models.CharField(max_length=200)
-	name = models.TextField(max_length=20, default='정확한 명칭을 입력해주세요.')
+	name = models.TextField(max_length=40, default='정확한 명칭을 입력해주세요.')
 	address = models.TextField(max_length=50, default='정확한 주소를 입력해주세요.')
 	content = models.TextField('CONTENT', default='내용을 입력해주세요.')
 
