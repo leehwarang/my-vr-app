@@ -22,9 +22,9 @@ urlpatterns = [
     url(r'^spot/(?P<pk>[0-9]+)/delete/$', views.post_spot_delete, name='post_spot_delete'),
     url(r'^accomodation/(?P<pk>[0-9]+)/delete/$', views.post_accomodation_delete, name='post_accomodation_delete'),
     url(r'^restaurant/(?P<pk>[0-9]+)/delete/$', views.post_restaurant_delete, name='post_restaurant_delete'),
-    url(r'^spot/explore/tags/(?P<tag>\w+)/$', views.post_spot_list, name='post_spot_search'),
     url(r'^logout/$', auth_views.logout, {'next_page': '/'}),  # 아주 잘 작동됨
     url(r'^login/$', auth_views.login, {'template_name': 'blog/login.html'}), # 아주 잘 작동됨
     url(r'^like/$', views.post_like, name='post_like'),
+    url(r'^spot/explore/tags/(?P<tag>\w+)/$', views.post_spot_list, name='post_spot_search'),
 ]
 

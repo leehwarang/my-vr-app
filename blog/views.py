@@ -33,41 +33,44 @@ def post_all(request):
     return render(request, 'blog/post_all.html', {'posts': posts})
 
 def post_spot_list(request, tag=None):
+    tag_all = Tag.objects.annotate(num_post=Count('post')).order_by('-num_post')  # 가장 인기 많은 태그를 나타내기 위함인가?
 
-    sort = request.GET.get('sort', '')  # url의 쿼리스트링을 가져온다. 없는 경우 공백을 리턴한다
-    tag_all = Tag.objects.annotate(num_post=Count('post')).order_by('-num_post') #가장 인기 많은 태그를 나타내기 위함인가?
-
-    #여기서 tag가 있는 포스트는 있는 상태로 되고, 아니면 없는 상태로 되어야 하는데.. 다 되는 상태로 출력 되는 듯??
     if tag:#tag_set의 name이 tag인 것..(tag_set이 있다면 tag)??iexact:대소문자 상관없이 검색
         spotposts = Post.objects.filter(tag_set__name__iexact=tag) \
             .prefetch_related('tag_set', 'like_user_set')
-        if sort == 'likes':
-            spotposts = Post.objects.filter(postcategory="SPOT").annotate(count=Count('like_user_set')).order_by(
-                '-count', '-created_date')
-            tag = request.POST.get('tag')
-            return render(request, 'blog/post_spot_list.html', {'spotposts': spotposts, 'tag':tag})
-        elif sort == 'date':
-            spotposts = Post.objects.filter(postcategory="SPOT").order_by('-created_date')
-            tag = request.POST.get('tag')
-            return render(request, 'blog/post_spot_list.html', {'spotposts': spotposts, 'tag':tag})
+    else:
+        spotposts = Post.objects.all() \
+            .prefetch_related('tag_set', 'like_user_set')
 
-        else:
-            spotposts = Post.objects.filter(postcategory="SPOT")
+    sort = request.GET.get('sort', '')  # url의 쿼리스트링을 가져온다. 없는 경우 공백을 리턴한다
+
+    if sort == 'likes':
+        spotposts = Post.objects.filter(postcategory="SPOT").annotate(count=Count('like_user_set')).order_by(
+                '-count', '-created_date')
+        if request.method == 'POST':  # 검색 안했으면 이쪽으로 안들어옴.
             tag = request.POST.get('tag')
-            return render(request, 'blog/post_spot_list.html', {'spotposts': spotposts, 'tag':tag})
+            tag_clean = ''.join(e for e in tag if e.isalnum())  # 특수문자 삭제
+            return redirect('post_spot_search', tag_clean)
+
+        return render(request, 'blog/post_spot_list.html', {'spotposts': spotposts, 'tag':tag, 'tag_all': tag_all})
+
+    elif sort == 'date':
+        spotposts = Post.objects.filter(postcategory="SPOT").order_by('-created_date')
+        if request.method == 'POST':  # 검색 안했으면 이쪽으로 안들어옴.
+            tag = request.POST.get('tag')
+            tag_clean = ''.join(e for e in tag if e.isalnum())  # 특수문자 삭제
+            return redirect('post_spot_search', tag_clean)
+
+        return render(request, 'blog/post_spot_list.html', {'spotposts': spotposts, 'tag':tag, 'tag_all': tag_all})
 
     else:
-        if sort == 'likes':
-            spotposts = Post.objects.filter(postcategory="SPOT").annotate(count=Count('like_user_set')).order_by(
-                '-count', '-created_date')
-            return render(request, 'blog/post_spot_list.html', {'spotposts': spotposts})
-        elif sort == 'date':
-            spotposts = Post.objects.filter(postcategory="SPOT").order_by('-created_date')
-            return render(request, 'blog/post_spot_list.html', {'spotposts': spotposts})
+        spotposts = Post.objects.filter(postcategory="SPOT")
+        if request.method == 'POST':  # 검색 안했으면 이쪽으로 안들어옴.
+            tag = request.POST.get('tag')
+            tag_clean = ''.join(e for e in tag if e.isalnum())  # 특수문자 삭제
+            return redirect('post_spot_search', tag_clean)
 
-        else:
-            spotposts = Post.objects.filter(postcategory="SPOT")
-            return render(request, 'blog/post_spot_list.html', {'spotposts': spotposts})
+        return render(request, 'blog/post_spot_list.html', {'spotposts': spotposts, 'tag':tag, 'tag_all': tag_all})
 
 def post_spot_detail(request, pk):
     spotpost = get_object_or_404(Post, pk=pk)

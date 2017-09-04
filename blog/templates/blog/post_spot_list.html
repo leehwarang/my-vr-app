@@ -1,5 +1,6 @@
 {% extends 'blog/base.html' %}
 {% load post_extras %}
+
 {% block content %}
   <div class="splash-image splash-post-spot">
     <div class="container">
@@ -13,7 +14,7 @@
       </div>
     </div>
   </div>
-  
+
   <div class="container">  
     <div class="card-deck">
       {% for spotpost in spotposts %}
@@ -43,7 +44,7 @@
                   <form class="post-delete" action="{% url "post_spot_delete" pk=spotpost.pk %}" method="post">
                     {% csrf_token %}
                     <input class="post-delete-content card-svg" type="submit" value="" onclick="return confirm('정말 삭제하시겠습니까?')" style="background: url(https://res.cloudinary.com/dxw1lbm7a/image/upload/v1504341794/ic_delete_forever_rmpijt.svg) no-repeat center; background-size: 24px 24px;">
-                  </form>                  
+                  </form>
                 </span>
               {% endif %}
             </div>
@@ -52,5 +53,6 @@
         </div>
       {% endfor %}
     </div>
-  </div>  
+  </div>
 {% endblock %}
+
