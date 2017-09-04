@@ -9,22 +9,23 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
     {% load staticfiles %}
-    <link rel="stylesheet" href="{% static 'css/application.css' %}?ver=7">
+    <link rel="stylesheet" href="{% static 'css/application.css' %}?ver=8">
+    <link rel="stylesheet" href="{% static 'css/root.css' %}?ver=1">
   </head>
-  
-  <body>
-    <!-- 공통 네비게이션바 GNB-->
-    <nav class="navbar navbar-toggleable-md navbar-light navbar-fixed-top">
+
+  <body class="post-all-bg">
+    <!-- 공통 네비게이션바 in post_all.html-->
+    <nav class="navbar navbar-toggleable-sm navbar-light">
 
       <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
+        <span class="navbar-toggler-icon icon-bar"></span>
       </button>
 
       <a class="navbar-brand" href="http://127.0.0.1:8000">
         <img src="http://res.cloudinary.com/dxw1lbm7a/image/upload/v1503748628/img-ci_wzdite.png" height="38">
       </a>
 
-      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <div class="collapse navbar-collapse container" id="navbarNavDropdown">
         <ul class="navbar-nav">
           <li class="nav-item">
             <a class="nav-link" href="http://127.0.0.1:8000/spot">장소</a>
@@ -35,9 +36,9 @@
           <li class="nav-item">
             <a class="nav-link" href="http://127.0.0.1:8000/restaurant">식당</a>
           </li>
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <a class="nav-link" href="http://127.0.0.1:8000/">레크레이션(미완성)</a>
-          </li>
+          </li> -->
         </ul>
         {% if user.is_active %}
           <ul class="navbar-nav navbar-nav-accounts">
@@ -61,61 +62,60 @@
       </div>
     </nav>
 
-    <div class="jumbotron root-jumbotron">
-      <div class="root-title-box container">
-        <h1 class="">멋진 장소를 360˚둘러보세요.</h1>
-      </div>  
-
-      <div class="root-body-box container">
-        <div class="card-deck">
-          <div class="card">
-            <div class="card-block">
-              <h6 class="card-title">카테고리</h6>
-              <div class="flex-center">
-                <div class="card-image">
-                  <img src="https://res.cloudinary.com/dxw1lbm7a/image/upload/v1503756671/ic_restaurant_black_48dp_2x_sr0xcu.png" width="48">
-                </div>  
+    <div class="root-content">
+        <div class="root-title-box container">
+          <h2 class="">360˚VR 영상을 둘러보세요.</h1>
+        </div>  
+        <div class="root-body-box container">
+          <div class="card-deck">
+            <a href="http://127.0.0.1:8000/spot" class="card">
+              <div class="card-block">
+                <h6 class="card-title">장소</h6>
+                <div class="flex-center">
+                  <div class="card-image">
+                    <img src="https://res.cloudinary.com/dxw1lbm7a/image/upload/v1503804039/ic_place_w28cg2.png">
+                  </div>  
+                </div>
               </div>
-              <a href="#" class="btn btn-sm btn-primary">둘러보기 〉</a>
-            </div>
-          </div>
-          <div class="card">
-            <div class="card-block">
-              <h6 class="card-title">카테고리</h6>
-              <div class="flex-center">
-                <div class="card-image">
-                  <img src="https://res.cloudinary.com/dxw1lbm7a/image/upload/v1503756671/ic_restaurant_black_48dp_2x_sr0xcu.png" width="48">
-                </div>  
+            </a>    
+            <a href="http://127.0.0.1:8000/accomodation" class="card">
+              <div class="card-block">
+                <h6 class="card-title">숙소</h6>
+                <div class="flex-center">
+                  <div class="card-image">
+                    <img src="https://res.cloudinary.com/dxw1lbm7a/image/upload/v1503804039/ic_hotel_z3amlf.png">
+                  </div>  
+                </div>
               </div>
-              <a href="#" class="btn btn-sm btn-primary">둘러보기 〉</a>
-            </div>
-          </div>
-          <div class="card">
-            <div class="card-block">
-              <h6 class="card-title">카테고리</h6>
-              <div class="flex-center">
-                <div class="card-image">
-                  <img src="https://res.cloudinary.com/dxw1lbm7a/image/upload/v1503756671/ic_restaurant_black_48dp_2x_sr0xcu.png" width="48">
-                </div>  
+            </a>    
+            <a href="http://127.0.0.1:8000/restaurant" class="card">
+              <div class="card-block">
+                <h6 class="card-title">식당</h6>
+                <div class="flex-center">
+                  <div class="card-image">
+                    <img src="https://res.cloudinary.com/dxw1lbm7a/image/upload/v1503804039/ic_restaurant_os5qf5.png">
+                  </div>  
+                </div>
               </div>
-              <a href="#" class="btn btn-sm btn-primary">둘러보기 〉</a>
-            </div>
-          </div>
-          <div class="card">
-            <div class="card-block">
-              <h6 class="card-title">카테고리</h6>
-              <div class="flex-center">
-                <div class="card-image">
-                  <img src="https://res.cloudinary.com/dxw1lbm7a/image/upload/v1503756671/ic_restaurant_black_48dp_2x_sr0xcu.png" width="48">
-                </div>  
+            </a>    
+            <!-- <a href="#" class="card">
+              <div class="card-block">
+                <h6 class="card-title">레크레이션</h6>
+                <div class="flex-center">
+                  <div class="card-image">
+                    <img src="https://res.cloudinary.com/dxw1lbm7a/image/upload/v1503804039/ic_pool_vktvxw.png">
+                  </div>  
+                </div>
               </div>
-              <a href="#" class="btn btn-sm btn-primary">둘러보기 〉</a>
-            </div>
+            </a>     -->
           </div>
         </div>
-      </div>
     </div>
-        
+
+    <h6 class="root-footer">
+      2017 VR·LOG │ Created by Hwarang Lee
+    </h6>
+
     <!-- jQuery first, then Tether, then Bootstrap JS. -->
     <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>

@@ -1,40 +1,55 @@
-<select id="sort-select" onchange="location = this.value;">
-    <option value="">선택</option>
-    <option class="sort-date" value="?sort=date">최신순</option>
-  <option class="sort-likes" value="?sort=likes">좋아요순</option>
-</select>
-
 {% extends 'blog/base.html' %}
 {% block content %}
-    {% for accomodationpost in accomodationposts %}
-
-<div class="card card-spots">
-  <div class="card-img-top" style="background: url({{ accomodationpost.photo.url }}) no-repeat center; background-size: cover;" alt="Card image cap"></div>
-  <div class="card-block">
-      <h4 class="card-title"><a href="{% url 'post_accomodation_detail' pk=accomodationpost.pk %}">{{ accomodationpost.title }}</a></h4>
-    <!-- <p class="card-text">필요할때 넣으세요.</p> -->
-    <div class="btn-group" role="group">
-      <input type="button" class="like btn btn-sm btn-secondary" name="{{ accomodationpost.pk}}" value="Like">
-      </input>
-      <div class="btn btn-sm btn-secondary card-spots-text-likes">
-        <span id="count-{{ accomodationpost.pk }}">{{ accomodationpost.like_count }}개</span>
-        <span id=""like-user-{{ accomodationpost.pk }}>
-          {%  for like_user in sootpost.like_user_set.all %}
-              {{ like_user.user }}
-              {% endfor %}
-        </span>
+  <div class="splash-image splash-post-accomodation">
+    <div class="container">
+      <div class="section-title">
+        <h1>숙소</h1>
+        <select id="sort-select" onchange="location = this.value;">
+          <option value="">순서</option>
+          <option class="sort-date" value="?sort=date">최신</option>
+          <option class="sort-likes" value="?sort=likes">좋아요</option>
+        </select>  
       </div>
-        {% if accomodationpost.owner == user %}
-            <span class=pull-right>
-        <a class="post-edit" href="{% url "post_accomodation_edit" pk=accomodationpost.pk %}"><img src=" static 'images/edit.png' %}" class="edit" alt="수정"></a>
-            <form class="post-delete-form" action="{% url "post_accomodation_delete" pk=accomodationpost.pk %}" method="post">
-        {% csrf_token %}
-        <input class="post-delete" type="submit" value="삭제" onclick="return confirm('정말 삭제하시겠습니까?')">
-      </form>
-    </span>
-    {% endif %}
     </div>
   </div>
-</div>
-{% endfor %}
+
+  <div class="container">  
+    <div class="card-deck">
+      {% for accomodationpost in accomodationposts %}
+        <div class="card card-spots">
+          <div class="card-img-top" onclick="location.href='{% url 'post_accomodation_detail' pk=accomodationpost.pk %}'" style="background: url({{ accomodationpost.photo.url }}) no-repeat center; background-size: cover;" alt="vr-image"></div>
+          <div class="card-block">
+            <a href="{% url 'post_accomodation_detail' pk=accomodationpost.pk %}" class="card-title" >{{ accomodationpost.title }}</a>
+            <div class="flex-space-between">
+              <div class="btn-group">
+                <input type="button" class="btn btn-sm btn-secondary btn-like" name="{{ accomodationpost.pk}}" value="Like"></input>
+                <div class="btn btn-sm btn-secondary card-spots-text-likes">
+                  <span id="count-{{ accomodationpost.pk }}">{{ accomodationpost.like_count }}개</span>
+                  <span id=""like-user-{{ accomodationpost.pk }}>
+                    {%  for like_user in sootpost.like_user_set.all %}
+                        {{ like_user.user }}
+                    {% endfor %}
+                  </span>
+                </div>
+              </div>
+              {% if accomodationpost.owner == user %}
+                <span class="post-button-group">
+                  <a class="post-edit" href="{% url "post_accomodation_edit" pk=accomodationpost.pk %}"> 
+                    <img class="card-svg" src="https://res.cloudinary.com/dxw1lbm7a/image/upload/v1504341794/ic_edit_black_pio8vu.svg" alt="수정">
+                  </a>
+
+                  <form class="post-delete" action="{% url "post_accomodation_delete" pk=accomodationpost.pk %}" method="post">
+                    {% csrf_token %}
+                    <input class="post-delete-content card-svg" type="submit" value="" onclick="return confirm('정말 삭제하시겠습니까?')" style="background: url(https://res.cloudinary.com/dxw1lbm7a/image/upload/v1504341794/ic_delete_forever_rmpijt.svg) no-repeat center; background-size: 24px 24px;">
+                  </form>                  
+                </span>
+              {% endif %}
+            </div>
+            <!-- ◀◀◀ 태그 정보에 대한 코드는 이곳에 추가하세요. -->
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>  
+
 {% endblock %}

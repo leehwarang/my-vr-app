@@ -1,0 +1,111 @@
+/*##### accounts 공통 #####*/
+.alert {
+	background-color: white;
+	border: none;
+	max-width: 400px;
+}
+.alert-danger {
+	color: #FF5722;
+	background-color: white;
+	margin: 8px auto 0 auto;
+}
+.close {
+	opacity: .16;
+}
+.account-content > .img-log-box { width: 100%; }
+.account-content > .img-log-box > .img-account-box {
+	border-radius: 3px;
+	max-width: 360px;
+	width: 100%;
+	height: 300px;
+}
+.account-content > .img-log-box > .img-account-box > h2 {
+	text-align: center;
+	color: white;
+	margin-top: 200px;
+	background-color: rgba(0,0,0,.4);
+	padding: 16px 0;
+	width: 100%;
+}
+.account-content > .btn {
+	margin: 16px auto;
+	display: table;
+}
+
+
+
+/*##### login #####*/
+.bg-accounts-login {
+	background: url(https://static.pexels.com/photos/161815/santorini-oia-greece-water-161815.jpeg) no-repeat center center;
+	background-size: cover;
+	color: transparent;
+	position: absolute;
+	width: 100vw;
+	height: 100vh;
+	z-index: -9;
+}
+.login-form-group {
+	max-width: 400px;
+	background-color: black;
+	padding: 40px;
+	margin-top: 40px;
+	color: white;
+	border-radius: 3px;
+}
+@media (max-width: 767px) {
+	.login-form-group {
+		margin-top: 8px;
+		padding: 16px;
+	}	
+}
+.login-form-group > form {
+	margin: 0;
+}
+.login-form-group > form > h2 {
+	font-weight: bold;
+	margin-bottom: 16px;
+}
+.login-form-group > form > .form-group {
+	margin: 8px 0 0 0;
+}
+.login-form-group > form > .form-group > label {
+	margin-bottom: 4px;
+	font-size: 14px;
+	color: #546E7A;
+}
+.login-form-group > form > .form-group > input {
+	border: none;
+	background-color: transparent;
+	border: 2px solid #263238;
+	color: white;
+	padding: 8px;
+	font-size: 24px;
+	font-weight: bold;
+}
+.login-form-group > form > .form-group > input::-webkit-input-placeholder { color: #37474F; }
+.login-form-group > form > .form-group > input::-moz-placeholder { color: #37474F; }
+.login-form-group > form > .form-group > input:-ms-input-placeholder { color: #37474F; }
+.login-form-group > form > .form-group > input:-moz-placeholder { color: #37474F; }
+
+.login-form-group > form > .form-group > input:focus {
+	border-color: white;
+}
+.login-form-group > form > .btn {
+	margin-top: 24px;
+	font-weight: bold;
+	cursor: pointer;
+	border: none;
+}
+.login-form-group > form > h6 {
+	margin: 16px 0 0 0;
+	color: #546E7A;
+}
+.login-form-group > form > h6 > a {
+	color: #90A4AE;
+	font-weight: bold;
+	text-decoration: none;
+}
+.login-form-group > form > h6 > a:hover {
+	color: white;
+}
+

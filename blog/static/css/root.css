@@ -1,0 +1,136 @@
+/*##### post-all #####*/
+@-webkit-keyframes slide {
+    from { background-position: 200vh; }
+    to { background-position: 0; }
+}
+
+.post-all-bg {
+	background: black url(https://res.cloudinary.com/dxw1lbm7a/image/upload/v1503752886/bg-vr-04_idnvxy.jpg) repeat-x center center;
+	background: black url(http://res.cloudinary.com/dxw1lbm7a/image/upload/v1503752092/bg-vr-03_thuduk.jpg) repeat-x center center;
+	background-size: cover;
+	background-attachment: fixed;
+	-webkit-animation: slide 40s linear infinite;
+	height: 100vh;
+}
+
+.root-content {
+	padding: 80px 16px 0 16px;
+	position: relative;
+	min-height: calc(100vh - 120px);
+}
+@media (max-width: 767px) { .root-content { padding-top: 24px; } }
+@media (max-width: 575px) { .root-content { padding-top: 0; } }
+
+.root-title-box,
+.root-body-box { 
+	max-width: 800px; 
+}
+.root-title-box,
+.root-body-box > .card-deck > .card {
+	background-color: black;
+}
+.root-title-box {
+	padding: 20px;
+	margin: 0 auto;
+	color: white;
+	border-top-left-radius: 3px;
+	border-top-right-radius: 3px;
+}
+.root-title-box > h2 {
+	margin: 0;
+	padding: 8px 0;
+	font-weight: bold;
+	text-align: center;
+}
+@media (max-width: 575px) { 
+	.root-title-box > h2 { 
+		padding: 0;
+		font-size: 16px; 
+	} 
+}
+
+.root-title-box > p { 
+	margin-bottom: 0; 
+}
+.root-category {
+	width: 200px;
+	height: 200px;
+	padding: 24px;
+	border-radius: 200px;
+	background-color: black;
+	color: white;
+}
+
+.root-body-box { 
+	padding: 0; 
+}
+.root-body-box > .card-deck > .card {
+	border: none;
+	color: #607D8B;
+	margin: 0;
+	border-radius: 0;
+}
+.root-body-box > .card-deck > .card:hover {
+	text-decoration: none;
+}
+.root-body-box > .card-deck > .card:hover:nth-child(1) {
+	background: url(https://images.pexels.com/photos/224756/pexels-photo-224756.jpeg?w=940&h=650&auto=compress&cs=tinysrgb);
+	background-size: cover;
+}
+.root-body-box > .card-deck > .card:hover:nth-child(2) {
+	background: url(https://images.pexels.com/photos/26139/pexels-photo-26139.jpg?w=940&h=650&auto=compress&cs=tinysrgb);
+	background-size: cover;
+}
+.root-body-box > .card-deck > .card:hover:nth-child(3) {
+	background: url(https://images.pexels.com/photos/8544/food-dinner-grilled-shashlik.jpg?w=940&h=650&auto=compress&cs=tinysrgb);
+	background-size: cover;
+}
+.root-body-box > .card-deck > .card:hover:nth-child(4) {
+	background: url(https://images.pexels.com/photos/209916/pexels-photo-209916.jpeg?w=940&h=650&auto=compress&cs=tinysrgb);
+	background-size: cover;
+}
+@media (max-width: 575px) {
+	.root-body-box > .card-deck > .card{
+		border: 10px solid black;
+		border-top: none;
+	}
+	.root-body-box > .card-deck > .card:nth-child(1) {
+		background: url(https://images.pexels.com/photos/224756/pexels-photo-224756.jpeg?w=940&h=650&auto=compress&cs=tinysrgb);
+		background-size: cover;
+	}
+	.root-body-box > .card-deck > .card:nth-child(2) {
+		background: url(https://images.pexels.com/photos/26139/pexels-photo-26139.jpg?w=940&h=650&auto=compress&cs=tinysrgb);
+		background-size: cover;
+	}
+	.root-body-box > .card-deck > .card:nth-child(3) {
+		background: url(https://images.pexels.com/photos/8544/food-dinner-grilled-shashlik.jpg?w=940&h=650&auto=compress&cs=tinysrgb);
+		background-size: cover;
+	}
+	.root-body-box > .card-deck > .card:nth-child(4) {
+		background: url(https://images.pexels.com/photos/209916/pexels-photo-209916.jpeg?w=940&h=650&auto=compress&cs=tinysrgb);
+		background-size: cover;
+	}
+}
+.root-body-box > .card-deck > .card > .card-block {
+	padding: 24px 24px 32px 24px;
+}
+.root-body-box > .card-deck > .card > .card-block > .card-title {
+	font-size: 13px;
+	text-align: center;
+	color: white;
+}
+.root-body-box > .card-deck > .card > .card-block > .btn-sm {
+	margin-top: 24px;
+}
+.card-image > img {
+	width: 48px;
+}
+
+.root-footer {
+	opacity: .5;
+	font-size: 12px;
+	color: white;
+	text-align: center;
+	margin-top: 16px;
+}
+

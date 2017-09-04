@@ -1,0 +1,167 @@
+.splash-image {
+	height: 280px;
+	width: 100%;
+	margin-top: -62px;
+	padding: 208px 16px 16px 16px;	
+}
+@media (max-width: 767px) {
+	.splash-image {
+		height: 220px;
+		padding: 168px 0 16px 0;			
+		padding-left: 0;
+		padding-right: 0;	
+	}
+}
+.splash-post-spot {
+	background: url(https://static.pexels.com/photos/224756/pexels-photo-224756.jpeg) no-repeat center;
+	background-size: cover;
+}
+.splash-post-accomodation {
+	background: url(https://static.pexels.com/photos/26139/pexels-photo-26139.jpg) no-repeat bottom;
+	background-size: cover;
+}
+
+.splash-post-restaurant {
+	background: url(https://static.pexels.com/photos/8544/food-dinner-grilled-shashlik.jpg) no-repeat center;
+	background-size: cover;
+}
+
+
+/*##### section #####*/
+.section-title {
+	display: flex;
+	padding: 0 8px;
+	border-bottom: 4px solid black;
+}
+@media (max-width: 767px) {
+	.section-title { padding: 0; }
+}
+.section-title > h1 {
+	font-weight: bold;
+	margin: 0;
+	color: white;
+	background-color: black;
+	padding: 2px 8px;
+	border-top-left-radius: 3px;
+	border-top-right-radius: 3px;
+}
+@media (max-width: 767px) {
+	.section-title > h1 {
+		font-size: 13px;
+		padding: 3px 8px 5px 8px;
+		margin-bottom: 4px;
+		line-height: 18px;
+		border-radius: 3px;
+	}
+}
+.section-title > select {
+	margin: 14px 0 0 auto;
+	background-color: black;
+	color: white;
+	font-weight: bold;
+	font-size: 13px;
+	border: none;
+	height: 26px;
+	cursor: pointer;
+}
+.section-title > select:hover { color: black; }
+@media (max-width: 767px) {
+	.section-title > select { margin-top: 0; }
+}
+
+/*##### card #####*/
+.card-deck { margin-top: 16px; }
+.card-spots {
+	min-width: 240px;
+	display: inline-flex;
+	margin: 8px 16px;
+	border: none;
+}
+@media (max-width: 767px) {
+	.card-spots {
+		min-width: calc(100%);
+		margin: 0 0 16px 0;
+	}
+}
+.card-spots > .card-img-top {
+	height: 200px;
+	border-radius: 3px;
+	cursor: pointer;
+	background-color: black;
+	transition: .2s;
+}
+.card-spots > .card-img-top:hover { 
+	opacity: .9;
+	margin: 0 -8px 0 -8px; 
+	
+}
+@media (max-width: 767px) {
+	.card-spots > .card-img-top { height: 140px; }
+}
+.card-spots > .card-block {
+	border-bottom-left-radius: 3px;
+	border-bottom-right-radius: 3px;
+	padding: 8px 0;
+}
+.card-spots > .card-block > .card-title {
+	overflow: hidden; 
+	text-overflow: ellipsis; 
+	display: -webkit-box;
+	-webkit-line-clamp: 1; /* 라인수 */	
+	-webkit-box-orient: vertical; 
+	word-wrap:break-word;
+	font-size: 16px;
+	font-weight: bold;
+	color: black;
+	margin-bottom: 8px;
+	max-width: calc(100% - 60px);
+}
+.card-spots > .card-block > .card-title:hover { 
+	background-color: black;
+	border-radius: 3px;
+}
+
+.card-spots > .card-block > a:hover { text-decoration: none; }
+input.btn.btn-sm.btn-secondary.btn-like {
+	cursor: pointer ;
+}
+.btn.btn-sm.btn-secondary.card-spots-text-likes {
+	cursor: default;
+	background-color: white;
+	border-color: #ccc;
+
+}
+.post-button-group {
+		position: absolute;
+		right: 0;
+		bottom: 43px;
+		height: 24px;
+	}
+.card-svg:hover {
+	background-color: black;
+	border-radius: 3px;
+	cursor: pointer;
+}
+.post-edit, .post-delete {
+	display: inline-grid;
+}
+.post-edit:hover {
+	color: transparent;
+	text-decoration: none;
+}
+.post-delete {
+	margin: 0;
+	margin-left: -5px;
+}
+.post-delete-content {
+	-webkit-appearance:none; 
+	outline: none;
+	border: none;
+	color: transparent;
+	width: 24px;
+	height: 24px;
+	border-radius: 3px;
+}
+.post-delete-content:hover {
+	background-color: black !important;
+}

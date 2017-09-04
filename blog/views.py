@@ -7,7 +7,7 @@ from django.utils import timezone
 from django.contrib.auth.decorators import login_required
 
 import blog
-from .models import Post, Like
+from .models import Post, Like, Tag
 from django.shortcuts import get_object_or_404
 from django.views.generic import TemplateView
 from django.views.generic.edit import CreateView
@@ -32,21 +32,42 @@ def post_all(request):
     posts = Post.objects.all()
     return render(request, 'blog/post_all.html', {'posts': posts})
 
-def post_spot_list(request):
+def post_spot_list(request, tag=None):
 
     sort = request.GET.get('sort', '')  # url의 쿼리스트링을 가져온다. 없는 경우 공백을 리턴한다
+    tag_all = Tag.objects.annotate(num_post=Count('post')).order_by('-num_post') #가장 인기 많은 태그를 나타내기 위함인가?
 
-    if sort == 'likes':
-        spotposts = Post.objects.filter(postcategory="SPOT").annotate(count=Count('like_user_set')).order_by('-count', '-created_date')
-        return render(request, 'blog/post_spot_list.html', {'spotposts': spotposts})
+    #여기서 tag가 있는 포스트는 있는 상태로 되고, 아니면 없는 상태로 되어야 하는데.. 다 되는 상태로 출력 되는 듯??
+    if tag:#tag_set의 name이 tag인 것..(tag_set이 있다면 tag)??iexact:대소문자 상관없이 검색
+        spotposts = Post.objects.filter(tag_set__name__iexact=tag) \
+            .prefetch_related('tag_set', 'like_user_set')
+        if sort == 'likes':
+            spotposts = Post.objects.filter(postcategory="SPOT").annotate(count=Count('like_user_set')).order_by(
+                '-count', '-created_date')
+            tag = request.POST.get('tag')
+            return render(request, 'blog/post_spot_list.html', {'spotposts': spotposts, 'tag':tag})
+        elif sort == 'date':
+            spotposts = Post.objects.filter(postcategory="SPOT").order_by('-created_date')
+            tag = request.POST.get('tag')
+            return render(request, 'blog/post_spot_list.html', {'spotposts': spotposts, 'tag':tag})
 
-    elif sort == 'date':
-        spotposts = Post.objects.filter(postcategory="SPOT").order_by('-created_date')
-        return render(request, 'blog/post_spot_list.html', {'spotposts': spotposts})
+        else:
+            spotposts = Post.objects.filter(postcategory="SPOT")
+            tag = request.POST.get('tag')
+            return render(request, 'blog/post_spot_list.html', {'spotposts': spotposts, 'tag':tag})
 
     else:
-        spotposts = Post.objects.filter(postcategory="SPOT")
-        return render(request, 'blog/post_spot_list.html', {'spotposts': spotposts})
+        if sort == 'likes':
+            spotposts = Post.objects.filter(postcategory="SPOT").annotate(count=Count('like_user_set')).order_by(
+                '-count', '-created_date')
+            return render(request, 'blog/post_spot_list.html', {'spotposts': spotposts})
+        elif sort == 'date':
+            spotposts = Post.objects.filter(postcategory="SPOT").order_by('-created_date')
+            return render(request, 'blog/post_spot_list.html', {'spotposts': spotposts})
+
+        else:
+            spotposts = Post.objects.filter(postcategory="SPOT")
+            return render(request, 'blog/post_spot_list.html', {'spotposts': spotposts})
 
 def post_spot_detail(request, pk):
     spotpost = get_object_or_404(Post, pk=pk)
@@ -109,6 +130,7 @@ def post_new(request): #request 객체안의 request.POST는 우리가 입력했
             post = form.save(commit=False)
             post.author = request.user
             post.save()
+            post.tag_save()
             messages.info(request, '새 글이 등록되었습니다.')
             if post.postcategory == "SPOT":
                 return redirect('post_spot_detail', pk=post.pk)
@@ -136,6 +158,7 @@ def post_spot_edit(request, pk):
             spotpost.author = request.user
             spotpost.created_date = timezone.now()
             spotpost.save()
+            spotpost.tag_save()
             return redirect('post_spot_detail', pk=spotpost.pk)
     else:
         form = PostForm(instance=spotpost)
@@ -151,6 +174,7 @@ def post_accomodation_edit(request, pk):
             accomodationpost.author = request.user
             accomodationpost.created_date = timezone.now()
             accomodationpost.save()
+            accomodationpost.tag_save()
             return redirect('post_spot_detail', pk=accomodationpost.pk)
     else:
         form = PostForm(instance=accomodationpost)
@@ -166,6 +190,7 @@ def post_restaurant_edit(request, pk):
             restaurantpost.author = request.user
             restaurantpost.created_date = timezone.now()
             restaurantpost.save()
+            restaurantpost.tag_save()
             return redirect('post_restaurant_detail', pk=restaurantpost.pk)
     else:
         form = PostForm(instance=restaurantpost)
@@ -181,6 +206,7 @@ def post_recreation_edit(request, pk):
             recreationpost.author = request.user
             recreationpost.created_date = timezone.now()
             recreationpost.save()
+            recreationpost.tag_save()
             return redirect('post_recreation_detail', pk=recreationpost.pk)
     else:
         form = PostForm(instance=recreationpost)

@@ -1,7 +1,18 @@
+<div class="bg-accounts-login">
+  .
+</div>
 {% extends 'blog/base.html' %}
-{% block content %}
+{% block content %}	
+	<div class="container account-content">
+		<div class="flex-center img-log-box" >
+		<div class="img-account-box flex-center" style="background: url(https://media.giphy.com/media/uLda64US3sb16/giphy.gif) no-repeat center; background-size: cover;">
+			<h2> " 잘가요 안녕. " </h2>	
+		</div>
+		</div>
+		
+		<a class="btn btn-primary" href="{%url 'login'%}">다시 로그인하기</a>
+	
+	</div>
 
-<h2> 잘 가요, 안녕. </h2>
-<p><a href="{%url 'login'%}">다시 로그인하기</a></p>
 
 {% endblock %}
