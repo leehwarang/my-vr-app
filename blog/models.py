@@ -52,7 +52,10 @@ class Post(models.Model):
 	title = models.CharField(max_length=200)
 	name = models.TextField(max_length=40, default='정확한 명칭을 입력해주세요.')
 	address = models.TextField(max_length=50, default='정확한 주소를 입력해주세요.')
-	content = models.TextField('CONTENT', default='내용을 입력해주세요.')
+	contents = models.TextField(max_length=500, default='좋은 장소를 다른 사람들에게 소개해주세요!')
+	hashtag = models.TextField('HASHTAG')
+
+
 	#hash = models.TextField(max_length=100, default=True)
 
 	photo = models.ImageField(upload_to = 'blog/post', default = 'blog/post/None/no-img.jpg')
@@ -66,11 +69,10 @@ class Post(models.Model):
 										   related_name='like_user_set',
 										   through='Like')  # post.like_set 으로 접근 가능
 
-	tag_set = models.ManyToManyField('Tag', blank=True)
-
+	tag_set = models.ManyToManyField('Tag', blank=True, max_length=40)
 
 	def __str__(self):
-		return self.content
+		return self.hashtag
 
 	def publish(self):
 		self.created_date = timezone.now()
@@ -88,7 +90,7 @@ class Post(models.Model):
 
 
 	def tag_save(self):
-		tags = re.findall(r"#(\w+)", self.content) # '#'로 시작하는 문자열 분리됨
+		tags = re.findall(r"#(\w+)", self.hashtag) # '#'로 시작하는 문자열 분리됨
 
 		if not tags:
 			return
