@@ -27,5 +27,6 @@ urlpatterns = [
     url(r'^like/$', views.post_like, name='post_like'),
     url(r'^spot/explore/tags/(?P<tag>\w+)/$', views.post_spot_list, name='post_spot_search'),
     url(r'^accomodation/explore/tags/(?P<tag>\w+)/$', views.post_accomodation_list, name='post_accomodation_search'),
+    url(r'^restaurant/explore/tags/(?P<tag>\w+)/$', views.post_restaurant_list, name='post_restaurant_search'),
 ]
 

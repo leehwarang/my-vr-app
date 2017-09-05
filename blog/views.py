@@ -116,21 +116,43 @@ def post_accomodation_detail(request, pk):
     accomodationpost = get_object_or_404(Post, pk=pk)
     return render(request, 'blog/post_accomodation_detail.html', {'accomodationpost': accomodationpost})
 
-def post_restaurant_list(request):
+def post_restaurant_list(request, tag=None):
 
     sort = request.GET.get('sort', '')  # url의 쿼리스트링을 가져온다. 없는 경우 공백을 리턴한다
 
-    if sort == 'likes':
-        restaurantposts = Post.objects.filter(postcategory="RESTAURANT").annotate(count=Count('like_user_set')).order_by('-count','-created_date')
-        return render(request, 'blog/post_restaurant_list.html', {'restaurantposts': restaurantposts})
+    tag_all = Tag.objects.annotate(num_post=Count('post')).order_by('-num_post')  # 가장 인기 많은 태그를 나타내기 위함
+    # Tag 별로 post의 숫자를 계산해서, post가 많은 태그 순으로 tag_all에 들어간다(Category 상관 없이)
+    restaurantposts = Post.objects.filter(postcategory="RESTAURANT")
 
-    elif sort == 'date':
-        restaurantposts = Post.objects.filter(postcategory="RESTAURANT").order_by('-created_date')
-        return render(request, 'blog/post_restaurant_list.html', {'restaurantposts': restaurantposts})
+    if tag:  # tag_set의 name이 tag인 것..(tag_set이 있다면 tag)??iexact:대소문자 상관없이 검색
+        restaurantposts = restaurantposts.filter(tag_set__name__iexact=tag) \
+            .prefetch_related('tag_set', 'like_user_set')
+        if sort == 'likes':
+            restaurantposts = restaurantposts.annotate(count=Count('like_user_set')).order_by(
+                '-count')
+            return render(request, 'blog/post_restaurant_list.html', {'restaurantposts': restaurantposts, 'tag': tag, 'tag_all': tag_all})
+
+        elif sort == 'date':
+            restaurantposts = restaurantposts.order_by('-created_date')
+            return render(request, 'blog/post_restaurant_list.html', {'restaurantposts': restaurantposts, 'tag': tag, 'tag_all': tag_all})
+
+        else:
+            return render(request, 'blog/post_restaurant_list.html', {'restaurantposts': restaurantposts, 'tag': tag, 'tag_all': tag_all})
 
     else:
-        restaurantposts = Post.objects.filter(postcategory="RESTAURANT")
-        return render(request, 'blog/post_restaurant_list.html', {'restaurantposts': restaurantposts})
+        restaurantposts = restaurantposts.all() \
+            .prefetch_related('tag_set', 'like_user_set')
+        if sort == 'likes':
+            restaurantposts = restaurantposts.annotate(count=Count('like_user_set')).order_by(
+                '-count')
+            return render(request, 'blog/post_restaurant_list.html', {'restaurantposts': restaurantposts, 'tag': tag, 'tag_all': tag_all})
+
+        elif sort == 'date':
+            restaurantposts = restaurantposts.order_by('-created_date')
+            return render(request, 'blog/post_restaurant_list.html', {'restaurantposts': restaurantposts, 'tag': tag, 'tag_all': tag_all})
+
+        else:
+            return render(request, 'blog/post_restaurant_list.html', {'restaurantposts': restaurantposts, 'tag': tag, 'tag_all': tag_all})
 
 def post_restaurant_detail(request, pk):
     restaurantpost = get_object_or_404(Post, pk=pk)

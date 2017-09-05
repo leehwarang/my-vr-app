@@ -1,4 +1,6 @@
 {% extends 'blog/base.html' %}
+{% load post_extras %}
+
 {% block content %}
   <div class="splash-image splash-post-restaurant">
       <div class="container">
@@ -12,6 +14,15 @@
         </div>
       </div>
     </div>
+
+        {% if tag %}
+        {% if not restaurantposts %}
+        #{{tag}}<br>태그 검색 결과가 없습니다.</h1>
+        {% else %}
+        #{{tag}} 검색결과</h1>
+  {% endif %}
+</div>
+{% endif %}
 
     <div class="container">  
       <div class="card-deck">
@@ -31,6 +42,7 @@
                       {% endfor %}
                     </span>
                   </div>
+                  <span>{{ restaurantpost|add_restaurant_link|safe|linebreaksbr }}</span>
                 </div>
                 {% if restaurantpost.owner == user %}
                   <span class="post-button-group">
