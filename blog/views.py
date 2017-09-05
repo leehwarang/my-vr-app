@@ -32,45 +32,43 @@ def post_all(request):
     posts = Post.objects.all()
     return render(request, 'blog/post_all.html', {'posts': posts})
 
-def post_spot_list(request, tag=None):
-    tag_all = Tag.objects.annotate(num_post=Count('post')).order_by('-num_post')  # 가장 인기 많은 태그를 나타내기 위함인가?
-
-    if tag:#tag_set의 name이 tag인 것..(tag_set이 있다면 tag)??iexact:대소문자 상관없이 검색
-        spotposts = Post.objects.filter(tag_set__name__iexact=tag) \
-            .prefetch_related('tag_set', 'like_user_set')
-    else:
-        spotposts = Post.objects.all() \
-            .prefetch_related('tag_set', 'like_user_set')
+def post_spot_list(request, tag=None): #tag없이 request만 올 수도 있고, tag있이 검색해서 올 수도 있음.
 
     sort = request.GET.get('sort', '')  # url의 쿼리스트링을 가져온다. 없는 경우 공백을 리턴한다
 
-    if sort == 'likes':
-        spotposts = Post.objects.filter(postcategory="SPOT").annotate(count=Count('like_user_set')).order_by(
-                '-count', '-created_date')
-        if request.method == 'POST':  # 검색 안했으면 이쪽으로 안들어옴.
-            tag = request.POST.get('tag')
-            tag_clean = ''.join(e for e in tag if e.isalnum())  # 특수문자 삭제
-            return redirect('post_spot_search', tag_clean)
+    tag_all = Tag.objects.annotate(num_post=Count('post')).order_by('-num_post')  # 가장 인기 많은 태그를 나타내기 위함
+    # Tag 별로 post의 숫자를 계산해서, post가 많은 태그 순으로 tag_all에 들어간다(Category 상관 없이)
+    spotposts = Post.objects.filter(postcategory="SPOT")
 
-        return render(request, 'blog/post_spot_list.html', {'spotposts': spotposts, 'tag':tag, 'tag_all': tag_all})
+    if tag:#tag_set의 name이 tag인 것..(tag_set이 있다면 tag)??iexact:대소문자 상관없이 검색
+        spotposts = spotposts.filter(tag_set__name__iexact=tag) \
+            .prefetch_related('tag_set', 'like_user_set')
+        if sort == 'likes':
+            spotposts = spotposts.annotate(count=Count('like_user_set')).order_by(
+                '-count')
+            return render(request, 'blog/post_spot_list.html', {'spotposts': spotposts, 'tag': tag, 'tag_all': tag_all})
 
-    elif sort == 'date':
-        spotposts = Post.objects.filter(postcategory="SPOT").order_by('-created_date')
-        if request.method == 'POST':  # 검색 안했으면 이쪽으로 안들어옴.
-            tag = request.POST.get('tag')
-            tag_clean = ''.join(e for e in tag if e.isalnum())  # 특수문자 삭제
-            return redirect('post_spot_search', tag_clean)
+        elif sort == 'date':
+            spotposts = spotposts.order_by('-created_date')
+            return render(request, 'blog/post_spot_list.html', {'spotposts': spotposts, 'tag': tag, 'tag_all': tag_all})
 
-        return render(request, 'blog/post_spot_list.html', {'spotposts': spotposts, 'tag':tag, 'tag_all': tag_all})
+        else:
+            return render(request, 'blog/post_spot_list.html', {'spotposts': spotposts, 'tag': tag, 'tag_all': tag_all})
 
     else:
-        spotposts = Post.objects.filter(postcategory="SPOT")
-        if request.method == 'POST':  # 검색 안했으면 이쪽으로 안들어옴.
-            tag = request.POST.get('tag')
-            tag_clean = ''.join(e for e in tag if e.isalnum())  # 특수문자 삭제
-            return redirect('post_spot_search', tag_clean)
+        spotposts = spotposts.all() \
+            .prefetch_related('tag_set', 'like_user_set')
+        if sort == 'likes':
+            spotposts = spotposts.annotate(count=Count('like_user_set')).order_by(
+                '-count')
+            return render(request, 'blog/post_spot_list.html', {'spotposts': spotposts, 'tag': tag, 'tag_all': tag_all})
 
-        return render(request, 'blog/post_spot_list.html', {'spotposts': spotposts, 'tag':tag, 'tag_all': tag_all})
+        elif sort == 'date':
+            spotposts = spotposts.order_by('-created_date')
+            return render(request, 'blog/post_spot_list.html', {'spotposts': spotposts, 'tag': tag, 'tag_all': tag_all})
+
+        else:
+            return render(request, 'blog/post_spot_list.html', {'spotposts': spotposts, 'tag': tag, 'tag_all': tag_all})
 
 def post_spot_detail(request, pk):
     spotpost = get_object_or_404(Post, pk=pk)

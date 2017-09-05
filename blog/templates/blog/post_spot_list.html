@@ -15,6 +15,16 @@
     </div>
   </div>
 
+    {% if tag %}
+        {% if not spotposts %}
+        #{{tag}}<br>태그 검색 결과가 없습니다.</h1>
+        {% else %}
+        #{{tag}} 검색결과</h1>
+  {% endif %}
+</div>
+{% endif %}
+
+
   <div class="container">  
     <div class="card-deck">
       {% for spotpost in spotposts %}
