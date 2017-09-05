@@ -74,21 +74,43 @@ def post_spot_detail(request, pk):
     spotpost = get_object_or_404(Post, pk=pk)
     return render(request, 'blog/post_spot_detail.html', {'spotpost': spotpost})
 
-def post_accomodation_list(request):
-
+def post_accomodation_list(request, tag=None):
     sort = request.GET.get('sort', '')  # url의 쿼리스트링을 가져온다. 없는 경우 공백을 리턴한다
 
-    if sort == 'likes':
-        accomodationposts = Post.objects.filter(postcategory="ACCOMODATION").annotate(count=Count('like_user_set')).order_by('-count','-created_date')
-        return render(request, 'blog/post_accomodation_list.html', {'accomodationposts': accomodationposts})
+    tag_all = Tag.objects.annotate(num_post=Count('post')).order_by('-num_post')  # 가장 인기 많은 태그를 나타내기 위함
+    # Tag 별로 post의 숫자를 계산해서, post가 많은 태그 순으로 tag_all에 들어간다(Category 상관 없이)
+    accomodationposts = Post.objects.filter(postcategory="ACCOMODATION")
 
-    elif sort == 'date':
-        accomodationposts = Post.objects.filter(postcategory="ACCOMODATION").order_by('-created_date')
-        return render(request, 'blog/post_accomodation_list.html', {'accomodationposts': accomodationposts})
+    if tag:  # tag_set의 name이 tag인 것..(tag_set이 있다면 tag)??iexact:대소문자 상관없이 검색
+        accomodationposts = accomodationposts.filter(tag_set__name__iexact=tag) \
+            .prefetch_related('tag_set', 'like_user_set')
+        if sort == 'likes':
+            accomodationposts = accomodationposts.annotate(count=Count('like_user_set')).order_by(
+                '-count')
+            return render(request, 'blog/post_accomodation_list.html', {'accomodationposts': accomodationposts, 'tag': tag, 'tag_all': tag_all})
+
+        elif sort == 'date':
+            accomodationposts = accomodationposts.order_by('-created_date')
+            return render(request, 'blog/post_accomodation_list.html', {'accomodationposts': accomodationposts, 'tag': tag, 'tag_all': tag_all})
+
+        else:
+            return render(request, 'blog/post_accomodation_list.html', {'accomodationposts': accomodationposts, 'tag': tag, 'tag_all': tag_all})
 
     else:
-        accomodationposts = Post.objects.filter(postcategory="ACCOMODATION")
-        return render(request, 'blog/post_accomodation_list.html', {'accomodationposts': accomodationposts})
+        accomodationposts = accomodationposts.all() \
+            .prefetch_related('tag_set', 'like_user_set')
+        if sort == 'likes':
+            accomodationposts = accomodationposts.annotate(count=Count('like_user_set')).order_by(
+                '-count')
+            return render(request, 'blog/post_accomodation_list.html', {'accomodationposts': accomodationposts, 'tag': tag, 'tag_all': tag_all})
+
+        elif sort == 'date':
+            accomodationposts = accomodationposts.order_by('-created_date')
+            return render(request, 'blog/post_accomodation_list.html', {'accomodationposts': accomodationposts, 'tag': tag, 'tag_all': tag_all})
+
+        else:
+            return render(request, 'blog/post_accomodation_list.html', {'accomodationposts': accomodationposts, 'tag': tag, 'tag_all': tag_all})
+
 
 def post_accomodation_detail(request, pk):
     accomodationpost = get_object_or_404(Post, pk=pk)

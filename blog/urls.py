@@ -26,5 +26,6 @@ urlpatterns = [
     url(r'^login/$', auth_views.login, {'template_name': 'blog/login.html'}), # 아주 잘 작동됨
     url(r'^like/$', views.post_like, name='post_like'),
     url(r'^spot/explore/tags/(?P<tag>\w+)/$', views.post_spot_list, name='post_spot_search'),
+    url(r'^accomodation/explore/tags/(?P<tag>\w+)/$', views.post_accomodation_list, name='post_accomodation_search'),
 ]
 

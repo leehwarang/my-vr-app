@@ -43,7 +43,7 @@
                     {% endfor %}
                   </span>
                 </div>
-                <span>{{ spotpost|add_link|safe|linebreaksbr }}</span>
+                <span>{{ spotpost|add_spot_link|safe|linebreaksbr }}</span>
               </div>
               {% if spotpost.owner == user %}
                 <span class="post-button-group">
