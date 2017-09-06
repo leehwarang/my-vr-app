@@ -2,66 +2,74 @@
 {% load post_extras %}
 
 {% block content %}
-  <div class="splash-image splash-post-restaurant">
-      <div class="container">
-        <div class="section-title">
-          <h1>식당</h1>
-          <select id="sort-select" onchange="location = this.value;">
-            <option value="">순서</option>
-            <option class="sort-date" value="?sort=date">최신</option>
-            <option class="sort-likes" value="?sort=likes">좋아요</option>
-          </select>  
-        </div>
-      </div>
-    </div>
-
+<div class="splash-image splash-post-restaurant">
+  <div class="container">
+    <div class="section-title">
+      <h1>
+        식당
+        <span>
         {% if tag %}
-        {% if not restaurantposts %}
-        #{{tag}}<br>태그 검색 결과가 없습니다.</h1>
-        {% else %}
-        #{{tag}} 검색결과</h1>
-  {% endif %}
+            {% if not spotposts %}
+                〉 #{{tag}}
+            {% else %}
+                〉 #{{tag}}
+            {% endif %}
+        {% endif %}
+        </span>
+      </h1>
+      <select id="sort-select" onchange="location = this.value;">
+        <option value="">순서</option>
+        <option class="sort-date" value="?sort=date">최신</option>
+        <option class="sort-likes" value="?sort=likes">좋아요</option>
+      </select>  
+    </div>
+  </div>
 </div>
+{% if tag %소}
+    {% if not restaurantposts %}
+        <div class="tag-result-empty container">
+          <h5>#{{tag}} 태그의 검색 결과가 없습니다.</h5>
+          <h5><a href="http://127.0.0.1:8000/restaurant">〈 돌아가기</a></h5>
+        </div> 
+    {% else %}
+    {% endif %}
 {% endif %}
 
-    <div class="container">  
-      <div class="card-deck">
-        {% for restaurantpost in restaurantposts %}
-          <div class="card card-spots">
-            <div class="card-img-top" onclick="location.href='{% url 'post_restaurant_detail' pk=restaurantpost.pk %}" style="background: url({{ restaurantpost.photo.url }}) no-repeat center; background-size: cover;" alt="vr-image"></div>
-            <div class="card-block">
-              <a href="{% url 'post_restaurant_detail' pk=restaurantpost.pk %}" class="card-title" >{{ restaurantpost.title }}</a>
-              <div class="flex-space-between">
-                <div class="btn-group">
-                  <input type="button" class="btn btn-sm btn-secondary btn-like" name="{{ restaurantpost.pk}}" value="Like"></input>
-                  <div class="btn btn-sm btn-secondary card-spots-text-likes">
-                    <span id="count-{{ restaurantpost.pk }}">{{ restaurantpost.like_count }}개</span>
-                    <span id=""like-user-{{ restaurantpost.pk }}>
-                      {%  for like_user in sootpost.like_user_set.all %}
-                          {{ like_user.user }}
-                      {% endfor %}
-                    </span>
-                  </div>
-                  <span>{{ restaurantpost|add_restaurant_link|safe|linebreaksbr }}</span>
-                </div>
-                {% if restaurantpost.owner == user %}
-                  <span class="post-button-group">
-                    <a class="post-edit" href="{% url "post_restaurant_detail" pk=restaurantpost.pk %}"> 
-                      <img class="card-svg" src="https://res.cloudinary.com/dxw1lbm7a/image/upload/v1504341794/ic_edit_black_pio8vu.svg" alt="수정">
-                    </a>
-
-                    <form class="post-delete" action="{% url "post_restaurant_delete" pk=restaurantpost.pk %}" method="post">
-                      {% csrf_token %}
-                      <input class="post-delete-content card-svg" type="submit" value="" onclick="return confirm('정말 삭제하시겠습니까?')" style="background: url(https://res.cloudinary.com/dxw1lbm7a/image/upload/v1504341794/ic_delete_forever_rmpijt.svg) no-repeat center; background-size: 24px 24px;">
-                    </form>                  
-                  </span>
-                {% endif %}
+<div class="container">  
+  <div class="card-deck">
+    {% for restaurantpost in restaurantposts %}
+      <div class="card card-spots">
+        <div class="card-img-top" onclick="location.href='{% url 'post_restaurant_detail' pk=restaurantpost.pk %}" style="background: url({{ restaurantpost.photo.url }}) no-repeat center; background-size: cover;" alt="vr-image"></div>
+        <div class="card-block">
+          <a href="{% url 'post_restaurant_detail' pk=restaurantpost.pk %}" class="card-title" >{{ restaurantpost.title }}</a>
+          {% if restaurantpost.owner == user %}
+            <span class="post-button-group">
+              <a class="post-edit" href="{% url "post_restaurant_detail" pk=restaurantpost.pk %}"> 
+                <img class="card-svg" src="https://res.cloudinary.com/dxw1lbm7a/image/upload/v1504341794/ic_edit_black_pio8vu.svg" alt="수정">
+              </a>
+              <form class="post-delete" action="{% url "post_restaurant_delete" pk=restaurantpost.pk %}" method="post">
+                {% csrf_token %}
+                <input class="post-delete-content card-svg" type="submit" value="" onclick="return confirm('정말 삭제하시겠습니까?')" style="background: url(https://res.cloudinary.com/dxw1lbm7a/image/upload/v1504341794/ic_delete_forever_rmpijt.svg) no-repeat center; background-size: 24px 24px;">
+              </form>                  
+            </span>
+          {% endif %}
+          <div class="card-tags">{{ restaurantpost|add_restaurant_link|safe|linebreaksbr }}</div>
+          <div class="flex-space-between">
+            <div class="btn-group">
+              <input type="button" class="btn btn-sm btn-secondary btn-like" name="{{ restaurantpost.pk}}" value="Like"></input>
+              <div class="btn btn-sm btn-secondary card-spots-text-likes">
+                <span id="count-{{ restaurantpost.pk }}">{{ restaurantpost.like_count }}개</span>
+                <span id=""like-user-{{ restaurantpost.pk }}>
+                  {%  for like_user in sootpost.like_user_set.all %}
+                      {{ like_user.user }}
+                  {% endfor %}
+                </span>
               </div>
-              <!-- ◀◀◀ 태그 정보에 대한 코드는 이곳에 추가하세요. -->
             </div>
           </div>
-        {% endfor %}
+        </div>
       </div>
-    </div> 
-
+    {% endfor %}
+  </div>
+</div> 
 {% endblock %}

@@ -68,6 +68,20 @@
 @media (max-width: 767px) {
 	.section-title > select { margin-top: 0; }
 }
+/*#### tags ####*/
+.tag-result-empty {
+	margin-top: 40px;
+}
+.tag-result-empty > h5 {
+	font-size: 16px;
+	line-height: 24px;
+	color: #90A4AE;
+	text-align: center;
+}
+.tag-result-empty > a {
+	text-align: center;
+	margin: 4px;
+}
 
 /*##### card #####*/
 .card-deck { margin-top: 16px; }
@@ -103,6 +117,7 @@
 	border-bottom-right-radius: 3px;
 	padding: 8px 0;
 }
+.card-spots > .card-block > a:hover { text-decoration: none; }
 .card-spots > .card-block > .card-title {
 	overflow: hidden; 
 	text-overflow: ellipsis; 
@@ -113,15 +128,31 @@
 	font-size: 16px;
 	font-weight: bold;
 	color: black;
-	margin-bottom: 8px;
 	max-width: calc(100% - 60px);
+	margin-bottom: 0;
 }
 .card-spots > .card-block > .card-title:hover { 
 	background-color: black;
 	border-radius: 3px;
 }
-
-.card-spots > .card-block > a:hover { text-decoration: none; }
+.card-spots > .card-block > .card-tags {
+	display: inline-table;
+	font-size: 0;
+	color: transparent;
+}
+.card-spots > .card-block > .card-tags > a {
+	font-size: 13px;
+	color: #1565C0;
+	margin-right: 4px;
+}
+.card-spots > .card-block > .card-tags > a:hover {
+	background-color: #1565C0;
+	border-radius: 3px;	
+	color: #1565C0;
+}
+.card-spots > .card-block > .flex-space-between > .btn-group {
+	margin-top: 6px;
+}
 input.btn.btn-sm.btn-secondary.btn-like {
 	cursor: pointer ;
 }
@@ -132,11 +163,11 @@ input.btn.btn-sm.btn-secondary.btn-like {
 
 }
 .post-button-group {
-		position: absolute;
-		right: 0;
-		bottom: 43px;
-		height: 24px;
-	}
+	position: absolute;
+	right: 0;
+	top: 208px;
+	height: 24px;
+}
 .card-svg:hover {
 	background-color: black;
 	border-radius: 3px;
