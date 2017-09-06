@@ -20,8 +20,8 @@ def photo_path(instance, filename):
 	return '{}/{}/{}.{}'.format(strftime('post/%Y/%m/%d/'), instance.author.username, pid, extension)
 
 class Post(models.Model):
-	owner = models.ForeignKey(User, null=True)
-	#owner = models.ForeignKey(settings.AUTH_USER_MODEL)
+	#owner = models.ForeignKey(User, null=True)
+	owner = models.ForeignKey(settings.AUTH_USER_MODEL, null=True)
 	country = CountryField(blank_label='(select country)')
 
 	SPOT ="SPOT"
