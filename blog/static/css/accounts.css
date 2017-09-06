@@ -34,7 +34,7 @@
 
 
 
-/*##### login #####*/
+/*##### login / signup #####*/
 .bg-accounts-login {
 	background: url(https://static.pexels.com/photos/161815/santorini-oia-greece-water-161815.jpeg) no-repeat center center;
 	background-size: cover;
@@ -44,7 +44,19 @@
 	height: 100vh;
 	z-index: -9;
 }
-.login-form-group {
+.bg-accounts-signup {
+	background: url('https://static.pexels.com/photos/373575/pexels-photo-373575.jpeg') no-repeat center center;
+	background-size: cover;
+	color: transparent;
+	position: absolute;
+	width: 100vw;
+	height: 100vh;
+	top: 0;
+	z-index: -9;
+}
+
+.login-form-group,
+.card-signup {
 	max-width: 400px;
 	background-color: black;
 	padding: 40px;
@@ -53,41 +65,68 @@
 	border-radius: 3px;
 }
 @media (max-width: 767px) {
-	.login-form-group {
+	.login-form-group,
+	.card-signup {
 		margin-top: 8px;
 		padding: 16px;
 	}	
 }
+.card-signup > form > p > .helptext {
+	font-size: 12px;
+	color: #546E7A;;
+	line-height: 18px;
+	margin-top: 4px;
+}
+.card-signup > form > button {
+	-webkit-appearance:none;
+	outline: none;
+	cursor: pointer;
+}
 .login-form-group > form {
 	margin: 0;
 }
-.login-form-group > form > h2 {
+.login-form-group > form > h2,
+.card-signup > h2 {
 	font-weight: bold;
 	margin-bottom: 16px;
 }
 .login-form-group > form > .form-group {
 	margin: 8px 0 0 0;
 }
-.login-form-group > form > .form-group > label {
+.login-form-group > form > .form-group > label,
+.card-signup > form > p > label {
 	margin-bottom: 4px;
 	font-size: 14px;
-	color: #546E7A;
+	font-weight: 800;
+	color: #90A4AE;
 }
-.login-form-group > form > .form-group > input {
+.login-form-group > form > .form-group > input,
+.card-signup > form > p > input {
 	border: none;
 	background-color: transparent;
 	border: 2px solid #263238;
 	color: white;
 	padding: 8px;
-	font-size: 24px;
+	font-size: 18px;
 	font-weight: bold;
+	border-radius: 3px;
+	-webkit-appearance:none;
+	outline: none;
+	width: 100%;
 }
-.login-form-group > form > .form-group > input::-webkit-input-placeholder { color: #37474F; }
-.login-form-group > form > .form-group > input::-moz-placeholder { color: #37474F; }
-.login-form-group > form > .form-group > input:-ms-input-placeholder { color: #37474F; }
-.login-form-group > form > .form-group > input:-moz-placeholder { color: #37474F; }
+.login-form-group > form > .form-group > input::-webkit-input-placeholder,
+.card-signup > form > p > input::-webkit-input-placeholder { color: #37474F; }
+.login-form-group > form > .form-group > input::-moz-placeholder,
+.card-signup > form > p > input::-moz-placeholder { color: #37474F; }
+.login-form-group > form > .form-group > input:-ms-input-placeholder,
+.card-signup > form > p > input:-ms-input-placeholder { color: #37474F; }
+.login-form-group > form > .form-group > input:-moz-placeholder,
+.card-signup > form > p > input:-moz-placeholder { color: #37474F; }
 
-.login-form-group > form > .form-group > input:focus {
+.login-form-group > form > .form-group > input:focus,
+.login-form-group > form > .form-group > input:hover,
+.card-signup > form > p > input:focus,
+.card-signup > form > p > input:hover {
 	border-color: white;
 }
 .login-form-group > form > .btn {
@@ -108,4 +147,9 @@
 .login-form-group > form > h6 > a:hover {
 	color: white;
 }
+
+
+
+
+
 
