@@ -173,7 +173,7 @@ def post_new(request): #request 객체안의 request.POST는 우리가 입력했
         form = PostForm(request.POST, request.FILES)
         if form.is_valid():
             post = form.save(commit=False)
-            post.author = request.user
+            post.owner = request.user
             post.save()
             post.tag_save()
             messages.info(request, '새 글이 등록되었습니다.')
@@ -196,15 +196,17 @@ def post_new(request): #request 객체안의 request.POST는 우리가 입력했
 @login_required()
 def post_spot_edit(request, pk):
     spotpost = get_object_or_404(Post, pk=pk)
+
     if request.method == "POST":
-        form = PostForm(request.POST, instance=spotpost)
-        if form.is_valid():
-            spotpost = form.save(commit=False)
-            spotpost.author = request.user
-            spotpost.created_date = timezone.now()
-            spotpost.save()
-            spotpost.tag_save()
-            return redirect('post_spot_detail', pk=spotpost.pk)
+        if spotpost.owner == User.objects.get(username = request.user.get_username()):
+            form = PostForm(request.POST, instance=spotpost)
+            if form.is_valid():
+                spotpost = form.save(commit=False)
+                spotpost.owner = request.user
+                spotpost.created_date = timezone.now()
+                spotpost.save()
+                spotpost.tag_save()
+                return redirect('post_spot_detail', pk=spotpost.pk)
     else:
         form = PostForm(instance=spotpost)
     return render(request, 'blog/post_spot_edit.html', {'form': form})
@@ -213,14 +215,15 @@ def post_spot_edit(request, pk):
 def post_accomodation_edit(request, pk):
     accomodationpost = get_object_or_404(Post, pk=pk)
     if request.method == "POST":
-        form = PostForm(request.POST, instance=accomodationpost)
-        if form.is_valid():
-            accomodationpost = form.save(commit=False)
-            accomodationpost.author = request.user
-            accomodationpost.created_date = timezone.now()
-            accomodationpost.save()
-            accomodationpost.tag_save()
-            return redirect('post_spot_detail', pk=accomodationpost.pk)
+        if accomodationpost.owner == User.objects.get(username = request.user.get_username()):
+            form = PostForm(request.POST, instance=accomodationpost)
+            if form.is_valid():
+                accomodationpost = form.save(commit=False)
+                accomodationpost.owner = request.user
+                accomodationpost.created_date = timezone.now()
+                accomodationpost.save()
+                accomodationpost.tag_save()
+                return redirect('post_spot_detail', pk=accomodationpost.pk)
     else:
         form = PostForm(instance=accomodationpost)
     return render(request, 'blog/post_accomodation_edit.html', {'form': form})
@@ -229,13 +232,14 @@ def post_accomodation_edit(request, pk):
 def post_restaurant_edit(request, pk):
     restaurantpost = get_object_or_404(Post, pk=pk)
     if request.method == "POST":
-        form = PostForm(request.POST, instance=restaurantpost)
-        if form.is_valid():
-            restaurantpost = form.save(commit=False)
-            restaurantpost.author = request.user
-            restaurantpost.created_date = timezone.now()
-            restaurantpost.save()
-            restaurantpost.tag_save()
+        if restaurantpost.owner == User.objects.get(username = request.user.get_username()):
+            form = PostForm(request.POST, instance=restaurantpost)
+            if form.is_valid():
+                restaurantpost = form.save(commit=False)
+                restaurantpost.owner = request.user
+                restaurantpost.created_date = timezone.now()
+                restaurantpost.save()
+                restaurantpost.tag_save()
             return redirect('post_restaurant_detail', pk=restaurantpost.pk)
     else:
         form = PostForm(instance=restaurantpost)
@@ -248,7 +252,7 @@ def post_recreation_edit(request, pk):
         form = PostForm(request.POST, instance=recreationpost)
         if form.is_valid():
             recreationpost = form.save(commit=False)
-            recreationpost.author = request.user
+            recreationpost.owner = request.user
             recreationpost.created_date = timezone.now()
             recreationpost.save()
             recreationpost.tag_save()
