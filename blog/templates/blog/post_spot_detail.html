@@ -46,7 +46,7 @@
             <a class="nav-link" href="http://127.0.0.1:8000/restaurant">식당</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="http://127.0.0.1:8000/">레크레이션(미완성)</a>
+            <a class="nav-link" href="http://127.0.0.1:8000/activity">활동</a>
           </li>
         </ul>
         {% if user.is_active %}
@@ -88,8 +88,8 @@
         <h3 class="detail-title">{{ spotpost.title }}</h3>
         <p class="detail-body">{{ spotpost.contents }}</p>
         <h6 class="detail-section-title">위치</h6>
-        <a href="https://www.google.co.kr/maps/place/{{spotpost.name}}/" class="detail-map">
-          <div href="https://www.google.co.kr/maps/place/{{spotpost.name}}/" class="btn btn-primary btn-detail-map">
+        <a href="https://www.google.co.kr/maps/place/{{spotpost.name}}/" class="detail-map" target="_blank">
+          <div href="https://www.google.co.kr/maps/place/{{spotpost.name}}/" class="btn btn-primary btn-detail-map" target="_blank">
             지도에서 '<p>{{ spotpost.name }}</p>' 보기
           </div>  
         </a>
@@ -106,3 +106,4 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
   </body>
 </html>
+

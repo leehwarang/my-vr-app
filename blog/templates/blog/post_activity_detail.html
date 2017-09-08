@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
     {% load staticfiles %}
     <link rel="stylesheet" href="{% static 'css/application.css' %}?ver=3">
-    <link rel="stylesheet" href="{% static 'css/detail.css' %}?ver=16">
+    <link rel="stylesheet" href="{% static 'css/detail.css' %}?ver=17">
     <!-- youtube link generate -->
     <script>
       function getId(url) {
@@ -73,35 +73,31 @@
 
     {% block content %}
     {% endblock %}
-    
-    <div class="detail-video">
-      <!-- video -->
-      <script>
-          var url = "{{activitypost.video }}";
-          var video_id = url.split("v=")[1].substring(0, 11)
-          document.write('<iframe width="560" height="315" src="http://www.youtube.com/embed/' + video_id + '" frameborder="0" allowfullscreen></iframe>');
-      </script>
-    </div>
-    <div class="container post-detail">
-      <h4 class="detail-title">
-        {{ activitypost.title }}
-      </h4>
-      <!-- disqus -->
-      <div>
-        {% load disqus_tags %}
-        {% disqus_show_comments %}
+    <div class="">
+      <div class="detail-video">
+        <!-- video -->
+        <script>
+            var url = "{{activitypost.video }}";
+            var video_id = url.split("v=")[1].substring(0, 11)
+            document.write('<iframe width="560" height="315" src="http://www.youtube.com/embed/' + video_id + '" frameborder="0" allowfullscreen></iframe>');
+        </script>
       </div>
-    </div>    
-    
-    
+      <div class="container post-detail">
+        <h6 class="detail-owner">{{activitypost.owner}}'s post</h6>
+        <h6 class="detail-date">{{activitypost.created_date}}</h6>
+        <h3 class="detail-title">{{ activitypost.title }}</h3>
 
-    
-
-
-    
+        <!-- disqus -->
+        <div>
+          {% load disqus_tags %}
+          {% disqus_show_comments %}
+        </div>
+      </div>    
+    </div>
     <!-- jQuery first, then Tether, then Bootstrap JS. -->
     <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
   </body>
 </html>
+
