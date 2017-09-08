@@ -158,6 +158,7 @@ def post_restaurant_detail(request, pk):
     restaurantpost = get_object_or_404(Post, pk=pk)
     return render(request, 'blog/post_restaurant_detail.html', {'restaurantpost': restaurantpost})
 
+'''
 def post_recreation_list(request):
     recreationposts = Post.objects.filter(postcategory="RECREATION")
     return render(request, 'blog/post_recreation_list.html', {'recreationposts': recreationposts})
@@ -165,7 +166,7 @@ def post_recreation_list(request):
 def post_recreation_detail(request, pk):
     recreationpost = get_object_or_404(Post, pk=pk)
     return render(request, 'blog/post_recreation_detail.html', {'recreationpost': recreationpost})
-
+'''
 
 @login_required()
 def post_new(request): #request 객체안의 request.POST는 우리가 입력했던 데이터를 가지고 있음
@@ -183,8 +184,8 @@ def post_new(request): #request 객체안의 request.POST는 우리가 입력했
             elif post.postcategory == "ACCOMODATION":
                 return redirect('post_accomodation_detail', pk=post.pk)
 
-            elif post.postcategory == "RECREATION":
-                return redirect('post_recreation_detail', pk=post.pk)
+            #elif post.postcategory == "RECREATION":
+                #return redirect('post_recreation_detail', pk=post.pk)
 
             else:
                 return redirect('post_restaurant_detail', pk=post.pk)
@@ -244,7 +245,7 @@ def post_restaurant_edit(request, pk):
     else:
         form = PostForm(instance=restaurantpost)
     return render(request, 'blog/post_restaurant_edit.html', {'form': form})
-
+'''
 @login_required()
 def post_recreation_edit(request, pk):
     recreationpost = get_object_or_404(Post, pk=pk)
@@ -260,7 +261,7 @@ def post_recreation_edit(request, pk):
     else:
         form = PostForm(instance=recreationpost)
     return render(request, 'blog/post_recreation_edit.html', {'form': form})
-
+'''
 @login_required()
 @require_POST #해당 view는 POST method만 받는다
 def post_like(request): #http가 서버에게 뭔가를 요청하는 것. 나 이 정보를 줘!
