@@ -1,30 +1,39 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Traveling using VR·LOG</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Traveling using VR</title>
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
     {% load staticfiles %}
-    <link rel="stylesheet" href="{% static 'css/application.css' %}?ver=8">
-    <link rel="stylesheet" href="{% static 'css/root.css' %}?ver=1">
+    <link rel="stylesheet" href="{% static 'css/application.css' %}?ver=3">
+    <link rel="stylesheet" href="{% static 'css/detail.css' %}?ver=16">
+    <!-- youtube link generate -->
+    <script>
+      function getId(url) {
+        var regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+        var match = url.match(regExp);  
+        if (match && match[2].length == 11) {
+          return match[2];
+        } else {
+          return 'error';
+        }
+      }
+    </script>
   </head>
 
-  <body class="post-all-bg">
-    <!-- 공통 네비게이션바 in post_all.html-->
+  <body>
+    <!-- 공통 네비게이션바 in post_activity_detail.html-->
     <nav class="navbar navbar-toggleable-sm navbar-light">
-
       <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon icon-bar"></span>
       </button>
-
       <a class="navbar-brand" href="http://127.0.0.1:8000">
         <img src="http://res.cloudinary.com/dxw1lbm7a/image/upload/v1503748628/img-ci_wzdite.png" height="38">
       </a>
-
       <div class="collapse navbar-collapse container" id="navbarNavDropdown">
         <ul class="navbar-nav">
           <li class="nav-item">
@@ -62,60 +71,34 @@
       </div>
     </nav>
 
-    <div class="root-content">
-        <div class="root-title-box container">
-          <h2 class="">360˚VR 영상을 둘러보세요.</h1>
-        </div>  
-        <div class="root-body-box container">
-          <div class="card-deck">
-            <a href="http://127.0.0.1:8000/spot" class="card">
-              <div class="card-block">
-                <h6 class="card-title">장소</h6>
-                <div class="flex-center">
-                  <div class="card-image">
-                    <img src="https://res.cloudinary.com/dxw1lbm7a/image/upload/v1503804039/ic_place_w28cg2.png">
-                  </div>  
-                </div>
-              </div>
-            </a>    
-            <a href="http://127.0.0.1:8000/accomodation" class="card">
-              <div class="card-block">
-                <h6 class="card-title">숙소</h6>
-                <div class="flex-center">
-                  <div class="card-image">
-                    <img src="https://res.cloudinary.com/dxw1lbm7a/image/upload/v1503804039/ic_hotel_z3amlf.png">
-                  </div>  
-                </div>
-              </div>
-            </a>    
-            <a href="http://127.0.0.1:8000/restaurant" class="card">
-              <div class="card-block">
-                <h6 class="card-title">식당</h6>
-                <div class="flex-center">
-                  <div class="card-image">
-                    <img src="https://res.cloudinary.com/dxw1lbm7a/image/upload/v1503804039/ic_restaurant_os5qf5.png">
-                  </div>  
-                </div>
-              </div>
-            </a>    
-            <!-- <a href="#" class="card">
-              <div class="card-block">
-                <h6 class="card-title">레크레이션</h6>
-                <div class="flex-center">
-                  <div class="card-image">
-                    <img src="https://res.cloudinary.com/dxw1lbm7a/image/upload/v1503804039/ic_pool_vktvxw.png">
-                  </div>  
-                </div>
-              </div>
-            </a>     -->
-          </div>
-        </div>
+    {% block content %}
+    {% endblock %}
+    
+    <div class="detail-video">
+      <!-- video -->
+      <script>
+          var url = "{{activitypost.video }}";
+          var video_id = url.split("v=")[1].substring(0, 11)
+          document.write('<iframe width="560" height="315" src="http://www.youtube.com/embed/' + video_id + '" frameborder="0" allowfullscreen></iframe>');
+      </script>
     </div>
+    <div class="container post-detail">
+      <h4 class="detail-title">
+        {{ activitypost.title }}
+      </h4>
+      <!-- disqus -->
+      <div>
+        {% load disqus_tags %}
+        {% disqus_show_comments %}
+      </div>
+    </div>    
+    
+    
 
-    <h6 class="root-footer">
-      2017 VR·LOG │ Created by Hwarang Lee
-    </h6>
+    
 
+
+    
     <!-- jQuery first, then Tether, then Bootstrap JS. -->
     <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>

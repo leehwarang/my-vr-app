@@ -26,6 +26,11 @@
 	background-size: cover;
 }
 
+.splash-post-activity {
+	background: url(https://static.pexels.com/photos/8544/food-dinner-grilled-shashlik.jpg) no-repeat center;
+	background-size: cover;
+}
+
 
 /*##### section #####*/
 .section-title {

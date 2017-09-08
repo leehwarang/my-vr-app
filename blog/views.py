@@ -196,6 +196,9 @@ def post_activity_list(request, tag=None): #tag없이 request만 올 수도 있�
         else:
             return render(request, 'blog/post_activity_list.html', {'activityposts': activityposts, 'tag': tag, 'tag_all': tag_all})
 
+def post_activity_detail(request, pk):
+    activitypost = get_object_or_404(Post, pk=pk)
+    return render(request, 'blog/post_activity_detail.html', {'activitypost': activitypost})
 '''
 def post_recreation_list(request):
     recreationposts = Post.objects.filter(postcategory="RECREATION")
@@ -299,23 +302,24 @@ def post_restaurant_edit(request, pk):
     else:
         form = PostForm(instance=restaurantpost)
     return render(request, 'blog/post_restaurant_edit.html', {'form': form})
-'''
+
 @login_required()
-def post_recreation_edit(request, pk):
-    recreationpost = get_object_or_404(Post, pk=pk)
+def post_activity_edit(request, pk):
+    activitypost = get_object_or_404(Post, pk=pk)
     if request.method == "POST":
-        form = PostForm(request.POST, instance=recreationpost)
-        if form.is_valid():
-            recreationpost = form.save(commit=False)
-            recreationpost.owner = request.user
-            recreationpost.created_date = timezone.now()
-            recreationpost.save()
-            recreationpost.tag_save()
-            return redirect('post_recreation_detail', pk=recreationpost.pk)
+        if activitypost.owner == User.objects.get(username = request.user.get_username()):
+            form = ActivityPostForm(request.POST, instance=activitypost)
+            if form.is_valid():
+                activitypost = form.save(commit=False)
+                activitypost.owner = request.user
+                activitypost.created_date = timezone.now()
+                activitypost.save()
+                activitypost.tag_save()
+            return redirect('post_activity_detail', pk=activitypost.pk)
     else:
-        form = PostForm(instance=recreationpost)
-    return render(request, 'blog/post_recreation_edit.html', {'form': form})
-'''
+        form = ActivityPostForm(instance=activitypost)
+    return render(request, 'blog/post_activity_edit.html', {'form': form})
+
 @login_required()
 @require_POST #해당 view는 POST method만 받는다
 def post_like(request): #http가 서버에게 뭔가를 요청하는 것. 나 이 정보를 줘!
@@ -369,6 +373,16 @@ def post_restaurant_delete(request, pk):
     else:
         messages.warning(request, '잘못된 접근입니다.')
         return redirect('post:post_restaurant_list')
+
+@login_required()
+def post_activity_delete(request, pk):
+    activitypost = get_object_or_404(Post, pk=pk)
+    if activitypost.owner == User.objects.get(username=request.user.get_username()):
+        activitypost.delete()
+        return redirect('post_activity_list')
+    else:
+        messages.warning(request, '잘못된 접근입니다.')
+        return redirect('post:post_activity_list')
 
 
 class CreateUserView(CreateView):
