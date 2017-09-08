@@ -36,3 +36,11 @@ class PostForm(forms.ModelForm):
         model = Post
         fields = ('country', 'postcategory','classification','title', 'name', 'address', 'contents','hashtag','photo', 'video')
         widgets = {'country': CountrySelectWidget()}
+
+class ActivityPostForm(forms.ModelForm):
+
+    photo = forms.ImageField(label='', required=False)
+
+    class Meta:
+        model = Post
+        fields = ('postcategory', 'title', 'hashtag', 'photo', 'video')

@@ -13,7 +13,7 @@ from django.views.generic import TemplateView
 from django.views.generic.edit import CreateView
 from .forms import CreateUserForm
 from django.core.urlresolvers import reverse_lazy
-from .forms import PostForm
+from .forms import PostForm, ActivityPostForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.views.decorators.http import require_POST
@@ -158,6 +158,44 @@ def post_restaurant_detail(request, pk):
     restaurantpost = get_object_or_404(Post, pk=pk)
     return render(request, 'blog/post_restaurant_detail.html', {'restaurantpost': restaurantpost})
 
+def post_activity_list(request, tag=None): #tag없이 request만 올 수도 있고, tag있이 검색해서 올 수도 있음.
+
+    sort = request.GET.get('sort', '')  # url의 쿼리스트링을 가져온다. 없는 경우 공백을 리턴한다
+
+    tag_all = Tag.objects.annotate(num_post=Count('post')).order_by('-num_post')  # 가장 인기 많은 태그를 나타내기 위함
+    # Tag 별로 post의 숫자를 계산해서, post가 많은 태그 순으로 tag_all에 들어간다(Category 상관 없이)
+    activityposts = Post.objects.filter(postcategory="ACTIVITY")
+
+    if tag:#tag_set의 name이 tag인 것..(tag_set이 있다면 tag)??iexact:대소문자 상관없이 검색
+        activityposts = activityposts.filter(tag_set__name__iexact=tag) \
+            .prefetch_related('tag_set', 'like_user_set')
+        if sort == 'likes':
+            activityposts = activityposts.annotate(count=Count('like_user_set')).order_by(
+                '-count')
+            return render(request, 'blog/post_activity_list.html', {'activityposts': activityposts, 'tag': tag, 'tag_all': tag_all})
+
+        elif sort == 'date':
+            activityposts = activityposts.order_by('-created_date')
+            return render(request, 'blog/post_activity_list.html', {'activityposts': activityposts, 'tag': tag, 'tag_all': tag_all})
+
+        else:
+            return render(request, 'blog/post_activity_list.html', {'activityposts': activityposts, 'tag': tag, 'tag_all': tag_all})
+
+    else:
+        activityposts = activityposts.all() \
+            .prefetch_related('tag_set', 'like_user_set')
+        if sort == 'likes':
+            activityposts = activityposts.annotate(count=Count('like_user_set')).order_by(
+                '-count')
+            return render(request, 'blog/post_activity_list.html', {'activityposts': activityposts, 'tag': tag, 'tag_all': tag_all})
+
+        elif sort == 'date':
+            activityposts = activityposts.order_by('-created_date')
+            return render(request, 'blog/post_activity_list.html', {'activityposts': activityposts, 'tag': tag, 'tag_all': tag_all})
+
+        else:
+            return render(request, 'blog/post_activity_list.html', {'activityposts': activityposts, 'tag': tag, 'tag_all': tag_all})
+
 '''
 def post_recreation_list(request):
     recreationposts = Post.objects.filter(postcategory="RECREATION")
@@ -193,6 +231,22 @@ def post_new(request): #request 객체안의 request.POST는 우리가 입력했
     else:
         form = PostForm()
     return render(request, 'blog/post_new.html', {'form': form})
+
+@login_required()
+def post_activity_new(request):
+    if request.method =="POST":
+        form = ActivityPostForm(request.POST, request.FILES)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.owner = request.user
+            post.save()
+            post.tag_save()
+            messages.info(request, '새 글이 등록되었습니다.')
+            if post.postcategory == "ACTIVITY":
+                return redirect('post_activity_detail', pk=post.pk)
+    else:
+        form = ActivityPostForm()
+    return render(request, 'blog/post_activity_new.html', {'form':form})
 
 @login_required()
 def post_spot_edit(request, pk):
