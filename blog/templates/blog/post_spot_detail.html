@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
     {% load staticfiles %}
     <link rel="stylesheet" href="{% static 'css/application.css' %}?ver=3">
-    <link rel="stylesheet" href="{% static 'css/detail.css' %}?ver=16">
+    <link rel="stylesheet" href="{% static 'css/detail.css' %}?ver=17">
     <!-- youtube link generate -->
     <script>
       function getId(url) {
@@ -73,41 +73,33 @@
 
     {% block content %}
     {% endblock %}
-    
-    <div class="detail-video">
-      <!-- video -->
-      <script>
-          var url = "{{spotpost.video }}";
-          var video_id = url.split("v=")[1].substring(0, 11)
-          document.write('<iframe width="560" height="315" src="http://www.youtube.com/embed/' + video_id + '" frameborder="0" allowfullscreen></iframe>');
-      </script>
-    </div>
-    <div class="container post-detail">
-      <h4 class="detail-title">
-        {{ spotpost.title }}
-      </h4>
-      <p class="detail-body">
-        {{ spotpost.contents }}  
-      </p>   
-      <h3>{{ spotpost.name }}</h3>
-      <h3>{{ spotpost.address }}</h3>
-      <a href="https://www.google.co.kr/maps/place/{{spotpost.name}}/" class="btn btn-primary">
-        지도에서 {{spotpost.name}} 보기
-      </a>
-
-      <!-- disqus -->
-      <div>
-        {% load disqus_tags %}
-        {% disqus_show_comments %}
+    <div class="">
+      <div class="detail-video">
+        <!-- video -->
+        <script>
+            var url = "{{spotpost.video }}";
+            var video_id = url.split("v=")[1].substring(0, 11)
+            document.write('<iframe width="560" height="315" src="http://www.youtube.com/embed/' + video_id + '" frameborder="0" allowfullscreen></iframe>');
+        </script>
       </div>
-    </div>    
-    
-    
-
-    
-
-
-    
+      <div class="container post-detail">
+        <h6 class="detail-owner">{{spotpost.owner}}'s post</h6>
+        <h6 class="detail-date">{{spotpost.created_date}}</h6>
+        <h3 class="detail-title">{{ spotpost.title }}</h3>
+        <p class="detail-body">{{ spotpost.contents }}</p>
+        <h6 class="detail-section-title">위치</h6>
+        <a href="https://www.google.co.kr/maps/place/{{spotpost.name}}/" class="detail-map">
+          <div href="https://www.google.co.kr/maps/place/{{spotpost.name}}/" class="btn btn-primary btn-detail-map">
+            지도에서 '<p>{{ spotpost.name }}</p>' 보기
+          </div>  
+        </a>
+        <!-- disqus -->
+        <div>
+          {% load disqus_tags %}
+          {% disqus_show_comments %}
+        </div>
+      </div>    
+    </div>
     <!-- jQuery first, then Tether, then Bootstrap JS. -->
     <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
