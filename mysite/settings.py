@@ -35,9 +35,11 @@ DATABASES['default'] = dj_database_url.config(conn_max_age=600)
 SECRET_KEY = '2l&8tw8)^7t2_3fl(sp^zx!0yjewjagfhfz52(+u1q@r)nz%gp'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
+ALLOWED_HOSTS = ['*']
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
-ALLOWED_HOSTS = ['127.0.0.1', '.pythonanywhere.com']
+
 
 
 # Application definition
