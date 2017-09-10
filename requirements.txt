@@ -26,3 +26,4 @@ swapper==1.1.0
 tqdm==4.14.0
 urllib3==1.22
 whitenoise==3.3.0
+dotenv
