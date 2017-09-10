@@ -26,8 +26,9 @@ if os.path.isfile(dotenv_file):
 
 # load database from the DATABASE_URL environment variable
 #DATABASES = {}
-db_from_env = dj_database_url.config(conn_max_age=500)
-DATABASES['default'].update(db_from_env)    
+DATABASES = {
+    'default': dj_database_url.config(default='sqlite:///db.sqlite')
+} 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
