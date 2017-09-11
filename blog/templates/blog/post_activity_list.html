@@ -30,7 +30,7 @@
     {% if not activityposts %}
         <div class="tag-result-empty container">
           <h5>#{{tag}} 태그의 검색 결과가 없습니다.</h5>
-          <h5><a href="http://127.0.0.1:8000/activity">〈 돌아가기</a></h5>
+          <h5><a href="http://arcane-chamber-81108.herokuapp.com/activity/">〈 돌아가기</a></h5>
         </div> 
     {% else %}
     {% endif %}    
@@ -61,7 +61,7 @@
               <div class="btn btn-sm btn-secondary card-spots-text-likes">
                 <span id="count-{{ activitypost.pk }}">{{ activitypost.like_count }}개</span>
                 <span id=""like-user-{{ activitypost.pk }}>
-                  {%  for like_user in sootpost.like_user_set.all %}
+                  {%  for like_user in activitypost.like_user_set.all %}
                       {{ like_user.user }}
                   {% endfor %}
                 </span>
