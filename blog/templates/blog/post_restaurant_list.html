@@ -34,7 +34,9 @@
     {% else %}
     {% endif %}
 {% endif %}
-
+<div class="btn-write-group">
+  <a class="btn btn-primary btn-write" href="{% url 'post_new' %}" alt="새로운 포스트 작성">╋</a>   
+</div>
 <div class="container">  
   <div class="card-deck">
     {% for restaurantpost in restaurantposts %}
@@ -44,7 +46,7 @@
           <a href="{% url 'post_restaurant_detail' pk=restaurantpost.pk %}" class="card-title" >{{ restaurantpost.title }}</a>
           {% if restaurantpost.owner == user %}
             <span class="post-button-group">
-              <a class="post-edit" href="{% url "post_restaurant_detail" pk=restaurantpost.pk %}"> 
+              <a class="post-edit" href="{% url "post_restaurant_edit" pk=restaurantpost.pk %}"> 
                 <img class="card-svg" src="https://res.cloudinary.com/dxw1lbm7a/image/upload/v1504341794/ic_edit_black_pio8vu.svg" alt="수정">
               </a>
               <form class="post-delete" action="{% url "post_restaurant_delete" pk=restaurantpost.pk %}" method="post">

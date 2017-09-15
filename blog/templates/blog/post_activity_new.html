@@ -1,44 +1,39 @@
 {% extends 'blog/base.html' %}
-
 {% block title %}New Post{% endblock %}
-
 {% block content %}
 
-<div class="form-container account-form-container">
-  <form class="form account-form" action="" method="post" enctype="multipart/form-data">
-    <div class="user-title">
-      <h1 class="form-title">NEW POST</h1>
+<div class="splash-image splash-post-new">
+  <div class="container">
+    <div class="section-title">
+      <h1>새로운 활동</h1>
     </div>
-    {% csrf_token %}
-    {{ form.as_p }}
-    <input class="submit_btn" type="submit" value="저장">
-  </form>
+  </div>
+</div>
+<div class="container post-write">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <input class="submit_btn btn btn-primary" type="submit" value="저장">    
 </div>
 
 <!--이미지 업로드에 관련된 js-->
 <script type="text/javascript">
+  function upload_img(input) {
+    if (input.files && input.files[0]) {
+      var reader = new FileReader();
 
-
-function upload_img(input) {
-  if (input.files && input.files[0]) {
-    var reader = new FileReader();
-
-    reader.onload = function (e) {
-      $('#img_id').attr('src', e.target.result);
+      reader.onload = function (e) {
+        $('#img_id').attr('src', e.target.result);
+      }
+      reader.readAsDataURL(input.files[0]);
     }
-    reader.readAsDataURL(input.files[0]);
   }
-}
-
-$("#id_photo").change(function(){
-  upload_img(this);
-});
-
-$(document).on('click', '.upload', function(){
-  $("#id_photo").click();
-});
-
-$('#id_photo').attr("required", true);
+  $("#id_photo").change(function(){
+    upload_img(this);
+  });
+  $(document).on('click', '.upload', function(){
+    $("#id_photo").click();
+  });
+  $('#id_photo').attr("required", true);
 </script>
 
 {% endblock %}

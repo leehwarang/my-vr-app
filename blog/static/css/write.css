@@ -1,0 +1,64 @@
+/* new와 edit 모두 적용합니다. */
+
+.splash-post-new {
+	background: url(https://static.pexels.com/photos/574159/pexels-photo-574159.jpeg) no-repeat center;
+	background-size: cover;
+}
+.splash-post-edit {
+	background: url(https://static.pexels.com/photos/569848/pexels-photo-569848.jpeg) no-repeat center;
+	background-size: cover;
+}
+.container.post-write {
+	margin-top: 40px;
+	padding: 0 32px;
+}
+@media (max-width: 767px) {
+	.container.post-write {
+		margin-top: 24px;
+		padding: 0 16px;
+	}	
+}
+
+.post-write label {
+	display: block;
+	font-size: 14px;
+	font-weight: bold;
+	margin-bottom: 4px;
+}
+
+.post-write select, 
+.post-write input {
+	height: auto;
+	max-width: 100%;
+}
+
+.post-write input,
+.post-write textarea {
+	padding: 8px;
+	width: 100%;
+	border-radius: 4px;
+	border: 1px solid rgb(166,166,166);
+}
+
+.post-write input[type='file'] {
+	height: auto;
+}
+.post-write input[type='file']:hover {
+	cursor: pointer;
+	background-color: #f7f7f8;
+}
+
+.post-write input[type='checkbox'] {
+	display: inline;
+}
+
+
+input.submit_btn,
+button.save {
+	cursor: pointer;
+	width: auto;
+	border: none;
+	padding: 8px 16px;
+	cursor: pointer;
+	margin-bottom: 80px;
+}

@@ -1,9 +1,19 @@
 {% extends 'blog/base.html' %}
-
 {% block content %}
-    <h1>New post</h1>
+
+<div class="splash-image splash-post-edit">
+  <div class="container">
+    <div class="section-title">
+      <h1>편집</h1>
+    </div>
+  </div>
+</div>
+
+<div class="container post-write">
     <form method="POST" class="post-form">{% csrf_token %}
         {{ form.as_p }}
-        <button type="submit" class="save btn btn-default">Save</button>
+        <button type="submit" class="save btn btn-primary">Save</button>
     </form>
+</div>
+    
 {% endblock %}

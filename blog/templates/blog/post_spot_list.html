@@ -35,6 +35,10 @@
     {% else %}
     {% endif %}    
 {% endif %}
+<div class="btn-write-group">
+  <a class="btn btn-primary btn-write" href="{% url 'post_new' %}" alt="새로운 포스트 작성">╋</a>   
+</div>
+
 
 <div class="container">  
   <div class="card-deck">
@@ -73,4 +77,5 @@
     {% endfor %}
   </div>
 </div>
+
 {% endblock %}

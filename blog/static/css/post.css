@@ -10,6 +10,7 @@
 		padding: 168px 0 16px 0;			
 		padding-left: 0;
 		padding-right: 0;	
+		box-shadow: 0 -220px #263238;
 	}
 }
 .splash-post-spot {
@@ -30,6 +31,7 @@
 	background: url(https://static.pexels.com/photos/209916/pexels-photo-209916.jpeg) no-repeat center;
 	background-size: cover;
 }
+
 
 
 /*##### section #####*/
@@ -200,4 +202,27 @@ input.btn.btn-sm.btn-secondary.btn-like {
 }
 .post-delete-content:hover {
 	background-color: black !important;
+}
+.btn-write-group {
+	position: relative;
+	z-index: 99999999;
+}
+.btn-write {
+	transition: .2s;
+	cursor: pointer;
+	position: fixed;
+	bottom: 40px;
+	right: 40px;
+	width: 56px;
+	height: 56px;
+	border-radius: 40px;
+	display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+   
+}
+
+.btn-write:hover {
+	transform:rotate(45deg);
 }
