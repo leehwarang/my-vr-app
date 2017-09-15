@@ -1,0 +1,67 @@
+/*##### all #####*/
+body {
+	margin: 0;
+}
+.flex-center {
+	display: flex;
+  	align-items: center;
+  	justify-content: center;
+}
+.flex-space-between {
+	display:flex;
+	justify-content: space-between;
+}
+
+
+
+
+/*##### navbar #####*/
+.navbar-light .navbar-nav .nav-link {
+	font-weight: bold;
+	color: white;
+	font-size: 14px;
+	background-color: black;
+	padding: 2px 8px;
+	margin: 0 2px;
+	border-radius: 3px;
+}
+@media (max-width: 767px) {
+	.navbar-light .navbar-nav .nav-link {
+		margin: 8px 0 0 0;
+	}
+	
+}
+@media (max-width: 575px) {
+	.navbar-collapse.container {
+		margin-left: 0;
+		margin-right: 0;
+	}
+}
+
+.navbar-light .navbar-nav .nav-link:hover {
+	color: transparent;
+}
+.navbar-light > .navbar-brand {
+	display: table;
+}
+.navbar-fixed-top {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	z-index: 9;
+}
+.navbar-nav-accounts {
+	margin-left: auto;
+}
+.navbar-toggler {
+	border: none;
+	cursor: pointer;
+	padding: 8px 0;
+}
+
+.navbar-toggler .navbar-toggler-icon {
+  	background-color: black;
+  	background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='-4 -4 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255,255,255, 1)' stroke-width='3' stroke-linecap='' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
+  	border-radius: 3px;
+}
