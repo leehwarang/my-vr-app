@@ -230,6 +230,8 @@ def post_new(request): #request 객체안의 request.POST는 우리가 입력했
 
             else:
                 return redirect('post_restaurant_detail', pk=post.pk)
+        else : 
+            return redirect('post_activity_list')
 
     else:
         form = PostForm()

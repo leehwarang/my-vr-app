@@ -18,7 +18,7 @@ import dotenv
 import json
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 # load environment variables from .env
 dotenv_file = os.path.join(BASE_DIR, ".env")
@@ -35,9 +35,7 @@ DATABASES = {
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
 
-# USAGE
-
-SECRET_KEY = os.environ['SECRET_KEY'] # my-secret-key
+SECRET_KEY = "2l&8tw8)^7t2_3fl(sp^zx!0yjewjagfhfz52(+u1q@r)nz%gp" # my-secret-key
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -80,7 +78,7 @@ ROOT_URLCONF = 'mysite.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

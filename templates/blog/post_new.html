@@ -11,11 +11,15 @@
 </div>
 
 <div class="container post-write">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <input class="submit_btn btn btn-primary" type="submit" value="저장">    
+  <form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input class="submit_btn btn btn-primary" type="submit" value="저장">    
+  </form>
 </div>
+{% endblock %}
 
+{% block javascript %}
 <!--이미지 업로드에 관련된 js-->
 <script type="text/javascript">
   function upload_img(input) {
