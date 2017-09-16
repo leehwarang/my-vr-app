@@ -212,7 +212,9 @@ def post_recreation_detail(request, pk):
 @login_required()
 def post_new(request): #request 객체안의 request.POST는 우리가 입력했던 데이터를 가지고 있음
     if request.method == "POST":
+        print(request.FILES)
         form = PostForm(request.POST, request.FILES)
+        print(form)
         if form.is_valid():
             post = form.save(commit=False)
             post.owner = request.user
