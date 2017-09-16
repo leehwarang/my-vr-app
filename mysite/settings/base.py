@@ -35,7 +35,21 @@ DATABASES = {
 # See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '2l&8tw8)^7t2_3fl(sp^zx!0yjewjagfhfz52(+u1q@r)nz%gp'
+secret_file = os.path.join(BASE_DIR, 'secret.json')
+
+with open(secret_file, 'r') as f:
+    secret = json.loads(f.read())
+
+def get_secret(setting, secret=secret):
+    try:
+        return secret[setting]
+    except:
+        msg = "Set key '{0}' in secret.json".format(setting)
+        raise ImproperlyConfigured(error_msg)
+
+# USAGE
+
+SECRET_KEY = get_secret('SECRET_KEY') # my-secret-key
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
