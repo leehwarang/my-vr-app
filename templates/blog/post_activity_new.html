@@ -10,9 +10,11 @@
   </div>
 </div>
 <div class="container post-write">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <input class="submit_btn btn btn-primary" type="submit" value="저장">    
+  <form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input class="submit_btn btn btn-primary" type="submit" value="저장">    
+  </form>
 </div>
 
 <!--이미지 업로드에 관련된 js-->
