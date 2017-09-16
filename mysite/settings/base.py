@@ -24,10 +24,11 @@ dotenv_file = os.path.join(BASE_DIR, ".env")
 if os.path.isfile(dotenv_file):
     dotenv.load_dotenv(dotenv_file)
 
+
 # load database from the DATABASE_URL environment variable
 #DATABASES = {}
 DATABASES = {
-    'default': dj_database_url.config(default='sqlite:///db.sqlite')
+    'default': dj_database_url.config(default='sqlite:///db.sqlite3')
 } 
 
 # Quick-start development settings - unsuitable for production
@@ -148,8 +149,7 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 LOGIN_REDIRECT_URL = '/'
-MEDIA_URL = '/media/' #각 media 파일에 대한 URL Prefix
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media') #업로드된 파일을 저장할 디렉토리 경로
+
 
 STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 
