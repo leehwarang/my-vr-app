@@ -27,4 +27,5 @@ tqdm==4.14.0
 urllib3==1.22
 whitenoise==3.3.0
 django-storages==1.5.2
-
+boto3==1.4.6
+botocore==1.6.2
