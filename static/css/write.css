@@ -1,11 +1,11 @@
 /* new와 edit 모두 적용합니다. */
 
 .splash-post-new {
-	background: url(https://static.pexels.com/photos/574159/pexels-photo-574159.jpeg) no-repeat center;
+	background: url('https://res.cloudinary.com/dxw1lbm7a/image/upload/v1506132938/Artboard_they6q.jpg') no-repeat center;
 	background-size: cover;
 }
 .splash-post-edit {
-	background: url(https://static.pexels.com/photos/569848/pexels-photo-569848.jpeg) no-repeat center;
+	background: url('https://res.cloudinary.com/dxw1lbm7a/image/upload/v1506133043/Artboard_1_pnrfhc.jpg') no-repeat center;
 	background-size: cover;
 }
 .container.post-write {

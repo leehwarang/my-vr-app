@@ -36,7 +36,7 @@
 
 /*##### login / signup #####*/
 .bg-accounts-login {
-	background: url(https://static.pexels.com/photos/161815/santorini-oia-greece-water-161815.jpeg) no-repeat center center;
+	background: url('https://res.cloudinary.com/dxw1lbm7a/image/upload/v1506132265/bg-accounts-login_tkknsp.jpg') no-repeat center center;
 	background-size: cover;
 	color: transparent;
 	position: absolute;
@@ -45,7 +45,7 @@
 	z-index: -9;
 }
 .bg-accounts-signup {
-	background: url('https://static.pexels.com/photos/373575/pexels-photo-373575.jpeg') no-repeat center center;
+	background: url('https://res.cloudinary.com/dxw1lbm7a/image/upload/v1506132426/Artboard_vytam3.jpg') no-repeat center center;
 	background-size: cover;
 	color: transparent;
 	position: absolute;

@@ -14,21 +14,21 @@
 	}
 }
 .splash-post-spot {
-	background: url(https://static.pexels.com/photos/224756/pexels-photo-224756.jpeg) no-repeat center;
+	background: url('https://res.cloudinary.com/dxw1lbm7a/image/upload/v1506132522/Artboard_sdqksa.jpg') no-repeat center;
 	background-size: cover;
 }
 .splash-post-accomodation {
-	background: url(https://static.pexels.com/photos/26139/pexels-photo-26139.jpg) no-repeat bottom;
+	background: url('https://res.cloudinary.com/dxw1lbm7a/image/upload/v1506132615/Artboard_k5ktau.jpg') no-repeat bottom;
 	background-size: cover;
 }
 
 .splash-post-restaurant {
-	background: url(https://static.pexels.com/photos/8544/food-dinner-grilled-shashlik.jpg) no-repeat center;
+	background: url('https://res.cloudinary.com/dxw1lbm7a/image/upload/v1506132682/Artboard_eix1ff.jpg') no-repeat center;
 	background-size: cover;
 }
 
 .splash-post-activity {
-	background: url(https://static.pexels.com/photos/209916/pexels-photo-209916.jpeg) no-repeat center;
+	background: url('https://res.cloudinary.com/dxw1lbm7a/image/upload/v1506132805/Artboard_1_v1ni6s.jpg') no-repeat center;
 	background-size: cover;
 }
 
