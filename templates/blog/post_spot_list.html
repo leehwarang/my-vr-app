@@ -77,5 +77,10 @@
     {% endfor %}
   </div>
 </div>
-
+<input type="text" id="tag-input" placeholder="검색한 태그를 입력하세요." target="newwindow" />
+<input type="button"
+       id="tag-input-button"
+       value="검색"
+       onclick="window.open('http://arcane-chamber-81108.herokuapp.com/spot/explore/tags/' + document.getElementById('tag-input').value, '_self');">
 {% endblock %}
+
