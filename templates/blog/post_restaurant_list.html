@@ -37,7 +37,15 @@
 <div class="btn-write-group">
   <a class="btn btn-primary btn-write" href="{% url 'post_new' %}" alt="새로운 포스트 작성">╋</a>   
 </div>
-<div class="container">  
+<div class="container"> 
+  <div class="search-form-group input-group">
+    <input type="text" class="form-control" id="tag-input" placeholder="검색할 태그를 입력하세요." target="newwindow" />
+    <input type="button"
+       id="tag-input-button"
+       value="검색"
+       class="btn btn-primary"
+       onclick="window.open('http://arcane-chamber-81108.herokuapp.com/restaurant/explore/tags/' + document.getElementById('tag-input').value, '_self');">
+  </div> 
   <div class="card-deck">
     {% for restaurantpost in restaurantposts %}
       <div class="card card-spots">
@@ -74,9 +82,5 @@
     {% endfor %}
   </div>
 </div>
-<input type="text" id="tag-input" placeholder="검색한 태그를 입력하세요." target="newwindow" />
-<input type="button"
-       id="tag-input-button"
-       value="검색"
-       onclick="window.open('http://arcane-chamber-81108.herokuapp.com/restaurant/explore/tags/' + document.getElementById('tag-input').value, '_self');"> 
+
 {% endblock %}
