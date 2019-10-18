@@ -24,7 +24,7 @@ requests==2.18.3
 six==1.10.0
 swapper==1.1.0
 tqdm==4.14.0
-urllib3==1.22
+urllib3==1.24.2
 whitenoise==3.3.0
 django-storages==1.5.2
 boto3==1.4.6
